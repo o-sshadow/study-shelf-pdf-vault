@@ -4,10 +4,14 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/study-shelf-pdf-vault/',
+  base: '/study-shelf-pdf-vault/',  // This is correct for GitHub Pages
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+      },
+    },
   },
   resolve: {
     alias: {
