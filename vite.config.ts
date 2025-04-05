@@ -6,17 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/study-shelf-pdf-vault/',
   build: {
-    outDir: 'dist',
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html'),
-      },
-      output: {
-        entryFileNames: 'assets/[name].js',
-        chunkFileNames: 'assets/[name].js',
-        assetFileNames: 'assets/[name].[ext]'
-      }
-    },
+    outDir: 'dist'
   },
   resolve: {
     alias: {
