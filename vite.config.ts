@@ -4,7 +4,7 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/study-shelf-pdf-vault/',  // This is correct for GitHub Pages
+  base: '/study-shelf-pdf-vault/',
   build: {
     outDir: 'dist',
     rollupOptions: {
