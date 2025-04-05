@@ -8,7 +8,7 @@ const Index = () => {
   return (
     <MainLayout>
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">StudyShelf PDF Vault</h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">Revision</h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           Your personal library of study materials organized by subject and category.
           Select a subject to explore available resources.

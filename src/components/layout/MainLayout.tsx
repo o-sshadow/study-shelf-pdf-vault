@@ -13,7 +13,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold flex items-center gap-2">
             <span className="text-3xl">📚</span>
-            <span>StudyShelf</span>
+            <span>o-sshadow Revision</span>
           </Link>
           <nav>
             <ul className="flex space-x-6">
@@ -34,7 +34,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <main className="container mx-auto px-4 py-8">{children}</main>
       <footer className="bg-gray-100 border-t border-gray-200 mt-auto">
         <div className="container mx-auto px-4 py-6 text-center text-gray-500">
-          <p>© 2025 StudyShelf PDF Vault. All rights reserved.</p>
+          <p>© 2025 Revision. All rights reserved.</p>
         </div>
       </footer>
     </div>
