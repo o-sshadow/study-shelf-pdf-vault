@@ -28,7 +28,7 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
       
       <div className={`bg-gray-100 border rounded-b-lg ${isFullscreen ? 'flex-1' : 'h-[70vh]'}`}>
         <iframe
-          src={`https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(pdf.path)}`}
+          src={pdf.path}
           title={pdf.title}
           className="w-full h-full rounded-b-lg"
         />
