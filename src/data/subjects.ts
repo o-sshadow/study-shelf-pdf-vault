@@ -541,73 +541,480 @@ export const pdfs: PDF[] = [
     dateAdded: "2025-03-01"
   },
   
-  // Computer Science - Mock PDFs (placeholders)
+  // Biology - Mock Exams
   {
-    id: "cs-mock-paper1",
-    title: "Computer Science Mock Paper 1",
-    description: "Mock exam covering programming and algorithms",
-    path: "/placeholders/computer-science-mock-1.pdf",
-    subject: "computer-science",
+    id: "bio-paper1-question",
+    title: "Biology Paper 1 - Questions",
+    description: "Biology Paper 1 examination questions",
+    path: "/pdfs/Biology/Mock Exams/paper1-question.pdf",
+    subject: "biology",
     category: "Mock Exams",
-    dateAdded: "2025-03-15"
+    dateAdded: "2025-01-05"
   },
   {
-    id: "cs-mock-paper2",
-    title: "Computer Science Mock Paper 2",
-    description: "Mock exam covering computer systems and networks",
-    path: "/placeholders/computer-science-mock-2.pdf",
-    subject: "computer-science",
+    id: "bio-paper1-answer",
+    title: "Biology Paper 1 - Answers",
+    description: "Biology Paper 1 examination answers",
+    path: "/pdfs/Biology/Mock Exams/paper1-answer.pdf",
+    subject: "biology",
+    category: "Mark Scheme",
+    dateAdded: "2025-01-05"
+  },
+  {
+    id: "bio-paper2-question",
+    title: "Biology Paper 2 - Questions",
+    description: "Biology Paper 2 examination questions",
+    path: "/pdfs/Biology/Mock Exams/paper2-question.pdf",
+    subject: "biology",
     category: "Mock Exams",
-    dateAdded: "2025-03-16"
+    dateAdded: "2025-01-08"
+  },
+  {
+    id: "bio-paper2-answer",
+    title: "Biology Paper 2 - Answers",
+    description: "Biology Paper 2 examination answers",
+    path: "/pdfs/Biology/Mock Exams/paper2-answer.pdf",
+    subject: "biology",
+    category: "Mark Scheme",
+    dateAdded: "2025-01-08"
   },
   
-  // Computer Science - Revision Notes (placeholders)
+  // Biology - Revision Notes
   {
-    id: "cs-programming",
-    title: "Programming Concepts",
-    description: "Comprehensive notes on programming fundamentals",
-    path: "/placeholders/cs-programming.pdf",
-    subject: "computer-science",
+    id: "bio-animal-hormones",
+    title: "Animal Hormones",
+    description: "Study notes on animal hormones and endocrine systems",
+    path: "/pdfs/Biology/Revision Notes/animalhormones.pdf",
+    subject: "biology",
     category: "Revision Notes",
-    dateAdded: "2025-02-10"
+    dateAdded: "2025-02-01"
   },
   {
-    id: "cs-data-structures",
-    title: "Data Structures and Algorithms",
-    description: "Guide to common data structures and algorithms",
-    path: "/placeholders/cs-data-structures.pdf",
-    subject: "computer-science",
+    id: "bio-brain",
+    title: "The Brain",
+    description: "Comprehensive notes on brain structure and function",
+    path: "/pdfs/Biology/Revision Notes/brain.pdf",
+    subject: "biology",
     category: "Revision Notes",
-    dateAdded: "2025-02-12"
+    dateAdded: "2025-02-02"
   },
   {
-    id: "cs-networking",
-    title: "Computer Networks",
-    description: "Essential concepts in computer networking",
-    path: "/placeholders/cs-networking.pdf",
-    subject: "computer-science",
+    id: "bio-cell-division",
+    title: "Cell Division",
+    description: "Notes on mitosis, meiosis and cell cycle",
+    path: "/pdfs/Biology/Revision Notes/celldivision.pdf",
+    subject: "biology",
     category: "Revision Notes",
-    dateAdded: "2025-02-15"
+    dateAdded: "2025-02-03"
   },
-  
-  // Biology - Revision Notes (placeholders)
   {
-    id: "bio-cells",
-    title: "Cell Biology",
-    description: "Comprehensive notes on cell structure and function",
-    path: "/placeholders/biology-cells.pdf",
+    id: "bio-circulatory-system",
+    title: "Circulatory System",
+    description: "Study of the heart and blood circulation",
+    path: "/pdfs/Biology/Revision Notes/circulatorysystem.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-04"
+  },
+  {
+    id: "bio-ecosystem-cycles",
+    title: "Cycles Within Ecosystems",
+    description: "Notes on carbon, nitrogen and water cycles",
+    path: "/pdfs/Biology/Revision Notes/cycleswithinecosystems.pdf",
     subject: "biology",
     category: "Revision Notes",
     dateAdded: "2025-02-05"
   },
   {
-    id: "bio-genetics",
-    title: "Genetics and Evolution",
-    description: "Study notes on genetics, inheritance and evolution",
-    path: "/placeholders/biology-genetics.pdf",
+    id: "bio-disease-defence",
+    title: "Defence Against Disease",
+    description: "Notes on immune system and disease prevention",
+    path: "/pdfs/Biology/Revision Notes/defenceagainstdisease.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-06"
+  },
+  {
+    id: "bio-medicine-development",
+    title: "Development of Medicines",
+    description: "Notes on drug development and testing",
+    path: "/pdfs/Biology/Revision Notes/developmentofmedicines.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-07"
+  },
+  {
+    id: "bio-diffusion",
+    title: "Diffusion",
+    description: "Notes on diffusion processes in cells",
+    path: "/pdfs/Biology/Revision Notes/diffusion.pdf",
     subject: "biology",
     category: "Revision Notes",
     dateAdded: "2025-02-08"
+  },
+  {
+    id: "bio-disease",
+    title: "Disease",
+    description: "Notes on disease types and transmission",
+    path: "/pdfs/Biology/Revision Notes/disease.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-09"
+  },
+  {
+    id: "bio-enzymes",
+    title: "Enzymes",
+    description: "Comprehensive notes on enzyme function and kinetics",
+    path: "/pdfs/Biology/Revision Notes/enzymes.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-10"
+  },
+  {
+    id: "bio-eukaryotic-organisms",
+    title: "Eukaryotic Organisms",
+    description: "Notes on eukaryotic cell structure and function",
+    path: "/pdfs/Biology/Revision Notes/eukaryoticorganisms.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-11"
+  },
+  {
+    id: "bio-feeding-relationships",
+    title: "Feeding Relationships",
+    description: "Notes on food chains and trophic levels",
+    path: "/pdfs/Biology/Revision Notes/feedingrelationships.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-12"
+  },
+  {
+    id: "bio-food-production",
+    title: "Food Production",
+    description: "Notes on agricultural techniques and food technology",
+    path: "/pdfs/Biology/Revision Notes/foodproduction.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-13"
+  },
+  {
+    id: "bio-gas-exchange",
+    title: "Gas Exchange",
+    description: "Notes on respiratory systems and gas exchange",
+    path: "/pdfs/Biology/Revision Notes/gasexchange.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-14"
+  },
+  {
+    id: "bio-genetic-modification",
+    title: "Genetic Modification",
+    description: "Notes on GMO technology and applications",
+    path: "/pdfs/Biology/Revision Notes/geneticmodification.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-15"
+  },
+  {
+    id: "bio-growth",
+    title: "Growth",
+    description: "Notes on cell growth and development",
+    path: "/pdfs/Biology/Revision Notes/growth.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-16"
+  },
+  {
+    id: "bio-homeostasis",
+    title: "Homeostasis",
+    description: "Notes on homeostatic mechanisms in organisms",
+    path: "/pdfs/Biology/Revision Notes/homeostasis.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-17"
+  },
+  {
+    id: "bio-human-influences",
+    title: "Human Influences",
+    description: "Notes on human impact on the environment",
+    path: "/pdfs/Biology/Revision Notes/humaninfluences.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-18"
+  },
+  {
+    id: "bio-inheritance",
+    title: "Inheritance",
+    description: "Notes on genetic inheritance and Mendelian genetics",
+    path: "/pdfs/Biology/Revision Notes/inheritence.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-19"
+  },
+  {
+    id: "bio-natural-selection",
+    title: "Natural Selection",
+    description: "Notes on evolution and natural selection",
+    path: "/pdfs/Biology/Revision Notes/naturalselection.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-20"
+  },
+  {
+    id: "bio-photosynthesis",
+    title: "Photosynthesis",
+    description: "Comprehensive notes on photosynthesis process",
+    path: "/pdfs/Biology/Revision Notes/photosynthesis.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-21"
+  },
+  {
+    id: "bio-plant-hormones",
+    title: "Plant Hormones",
+    description: "Notes on plant growth regulators and tropisms",
+    path: "/pdfs/Biology/Revision Notes/planthormones.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-22"
+  },
+  {
+    id: "bio-plant-structure",
+    title: "Plant Structure",
+    description: "Notes on plant anatomy and physiology",
+    path: "/pdfs/Biology/Revision Notes/plantstructure.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-23"
+  },
+  {
+    id: "bio-reproduction",
+    title: "Reproduction",
+    description: "Notes on sexual and asexual reproduction",
+    path: "/pdfs/Biology/Revision Notes/reproduction.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-24"
+  },
+  {
+    id: "bio-respiration",
+    title: "Respiration",
+    description: "Notes on aerobic and anaerobic respiration",
+    path: "/pdfs/Biology/Revision Notes/respiration.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-25"
+  },
+  {
+    id: "bio-stem-cells",
+    title: "Stem Cells",
+    description: "Notes on stem cell properties and applications",
+    path: "/pdfs/Biology/Revision Notes/stemcells.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-26"
+  },
+  {
+    id: "bio-organism-environment",
+    title: "The Organism in the Environment",
+    description: "Notes on organism adaptations to environment",
+    path: "/pdfs/Biology/Revision Notes/theorganismintheenvironment.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-27"
+  },
+  {
+    id: "bio-transport-animals",
+    title: "Transport in Animals",
+    description: "Notes on circulatory and transport systems",
+    path: "/pdfs/Biology/Revision Notes/transportinanimals.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-28"
+  },
+  {
+    id: "bio-transport-plants",
+    title: "Transport in Plants",
+    description: "Notes on xylem, phloem and transpiration",
+    path: "/pdfs/Biology/Revision Notes/transportinplants.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-29"
+  },
+  
+  // Computer Science - Mock Exams
+  {
+    id: "cs-paper1-question",
+    title: "Computer Science Paper 1 - Questions",
+    description: "Computer Science Paper 1 examination questions",
+    path: "/pdfs/Computer Science/Mock Exams/paper1-question.pdf",
+    subject: "computer-science",
+    category: "Mock Exams",
+    dateAdded: "2025-03-01"
+  },
+  {
+    id: "cs-paper1-answer",
+    title: "Computer Science Paper 1 - Answers",
+    description: "Computer Science Paper 1 examination answers",
+    path: "/pdfs/Computer Science/Mock Exams/paper1-answer.pdf",
+    subject: "computer-science",
+    category: "Mark Scheme",
+    dateAdded: "2025-03-01"
+  },
+  {
+    id: "cs-paper2-question",
+    title: "Computer Science Paper 2 - Questions",
+    description: "Computer Science Paper 2 examination questions",
+    path: "/pdfs/Computer Science/Mock Exams/paper2-question.pdf",
+    subject: "computer-science",
+    category: "Mock Exams",
+    dateAdded: "2025-03-03"
+  },
+  {
+    id: "cs-paper2-answer",
+    title: "Computer Science Paper 2 - Answers",
+    description: "Computer Science Paper 2 examination answers",
+    path: "/pdfs/Computer Science/Mock Exams/paper2-answer.pdf",
+    subject: "computer-science",
+    category: "Mark Scheme",
+    dateAdded: "2025-03-03"
+  },
+  
+  // Computer Science - Revision Notes
+  {
+    id: "cs-bool-logic",
+    title: "Boolean Logic Diagrams",
+    description: "Study of logic gates and Boolean algebra",
+    path: "/pdfs/Computer Science/Revision Notes/booleanlogicdiagrams.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-10"
+  },
+  {
+    id: "cs-computational-thinking",
+    title: "Computational Thinking and Algorithms",
+    description: "Notes on problem-solving and algorithmic thinking",
+    path: "/pdfs/Computer Science/Revision Notes/computationalthinkingandalgorithms.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-11"
+  },
+  {
+    id: "cs-cpu",
+    title: "CPU",
+    description: "Notes on central processing unit architecture",
+    path: "/pdfs/Computer Science/Revision Notes/cpu.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-12"
+  },
+  {
+    id: "cs-creating-algorithms",
+    title: "Creating Algorithms",
+    description: "Techniques for algorithm design and implementation",
+    path: "/pdfs/Computer Science/Revision Notes/creatingalgorithms.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-13"
+  },
+  {
+    id: "cs-data-storage",
+    title: "Data Storage and Compression",
+    description: "Notes on data representation and compression techniques",
+    path: "/pdfs/Computer Science/Revision Notes/datastorageandcompression.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-14"
+  },
+  {
+    id: "cs-defensive-design",
+    title: "Defensive Design and Testing",
+    description: "Notes on secure programming practices and testing methodologies",
+    path: "/pdfs/Computer Science/Revision Notes/defensivedesignandtesting.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-15"
+  },
+  {
+    id: "cs-impact",
+    title: "Ethical, Legal, Cultural and Environmental Impact",
+    description: "Notes on computing ethics and societal impacts",
+    path: "/pdfs/Computer Science/Revision Notes/ethicallegalculturalandenvironmentalimpact.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-16"
+  },
+  {
+    id: "cs-networks",
+    title: "Networks and Topologies",
+    description: "Notes on network architectures and designs",
+    path: "/pdfs/Computer Science/Revision Notes/networksandtopologies.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-17"
+  },
+  {
+    id: "cs-os",
+    title: "OS and Utility Software",
+    description: "Notes on operating systems and utility applications",
+    path: "/pdfs/Computer Science/Revision Notes/osandutilitysoftware.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-18"
+  },
+  {
+    id: "cs-preventing-threats",
+    title: "Preventing Threats",
+    description: "Notes on cybersecurity and threat prevention",
+    path: "/pdfs/Computer Science/Revision Notes/preventingthreats.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-19"
+  },
+  {
+    id: "cs-storage",
+    title: "Primary and Secondary Storage",
+    description: "Notes on computer memory and storage technologies",
+    path: "/pdfs/Computer Science/Revision Notes/primaryandsecondarystorage.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-20"
+  },
+  {
+    id: "cs-programming-fundamentals",
+    title: "Programming Fundamentals",
+    description: "Notes on basic programming concepts and structures",
+    path: "/pdfs/Computer Science/Revision Notes/programmingfundamentals.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-21"
+  },
+  {
+    id: "cs-programming-languages",
+    title: "Programming Languages and IDEs",
+    description: "Notes on different programming languages and development environments",
+    path: "/pdfs/Computer Science/Revision Notes/programminglanguagesandIDEs.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-22"
+  },
+  {
+    id: "cs-programming-techniques",
+    title: "Programming Techniques",
+    description: "Advanced programming concepts and strategies",
+    path: "/pdfs/Computer Science/Revision Notes/programmingtechniques.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-23"
+  },
+  {
+    id: "cs-networking-layers",
+    title: "Wired and Wireless Networks, Protocols and Layers",
+    description: "Notes on network technologies and the OSI model",
+    path: "/pdfs/Computer Science/Revision Notes/wiredandwirelessnetoworksprotocolsandlayers.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-24"
   }
 ];
 
