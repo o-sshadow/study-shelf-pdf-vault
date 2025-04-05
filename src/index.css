@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,6 +99,27 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
+}
+
+/* Custom styles for PDF viewer */
+.prose {
+  @apply max-w-none;
+}
+
+.prose h2 {
+  @apply text-xl font-semibold mt-6 mb-3 text-gray-800;
+}
+
+.prose p {
+  @apply my-4;
+}
+
+.prose ol {
+  @apply my-4 pl-6 list-decimal;
+}
+
+.prose li {
+  @apply mb-2;
 }

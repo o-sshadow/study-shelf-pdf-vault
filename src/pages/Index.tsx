@@ -1,13 +1,26 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from "react";
+import MainLayout from "@/components/layout/MainLayout";
+import SubjectCard from "@/components/SubjectCard";
+import { subjects } from "@/data/subjects";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <MainLayout>
+      <div className="mb-8 text-center">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">StudyShelf PDF Vault</h1>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          Your personal library of study materials organized by subject and category.
+          Select a subject to explore available resources.
+        </p>
       </div>
-    </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {subjects.map((subject) => (
+          <SubjectCard key={subject.id} subject={subject} />
+        ))}
+      </div>
+    </MainLayout>
   );
 };
 
