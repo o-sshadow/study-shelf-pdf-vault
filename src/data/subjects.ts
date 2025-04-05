@@ -1,5 +1,5 @@
 
-export type SubjectCategory = "Mock Exams" | "Revision Notes" | "Past Papers";
+export type SubjectCategory = "Mock Exams" | "Revision Notes" | "Past Papers" | "Mark Scheme";
 
 export interface Subject {
   id: string;
@@ -12,46 +12,25 @@ export interface Subject {
 // You can customize this list of subjects
 export const subjects: Subject[] = [
   {
-    id: "mathematics",
-    name: "Mathematics",
-    description: "Numbers, algebra, geometry, and more",
-    color: "bg-blue-500",
-    icon: "📐"
+    id: "chemistry-edexcel",
+    name: "Chemistry - Edexcel",
+    description: "Chemistry for Edexcel examination board",
+    color: "bg-pink-500",
+    icon: "⚗️"
   },
   {
-    id: "english",
-    name: "English",
-    description: "Literature, language, and writing",
+    id: "english-aqa",
+    name: "English - AQA",
+    description: "English literature and language for AQA",
     color: "bg-green-500",
     icon: "📚"
   },
   {
-    id: "science",
-    name: "Science",
-    description: "Physics, chemistry, and biology",
-    color: "bg-purple-500",
-    icon: "🧪"
-  },
-  {
-    id: "history",
-    name: "History",
-    description: "Past events and their significance",
-    color: "bg-amber-500",
-    icon: "🏛️"
-  },
-  {
-    id: "geography",
-    name: "Geography",
-    description: "Study of places and relationships between people and their environments",
+    id: "biology",
+    name: "Biology",
+    description: "Study of living organisms",
     color: "bg-emerald-500",
-    icon: "🌍"
-  },
-  {
-    id: "computerscience",
-    name: "Computer Science",
-    description: "Programming, algorithms, and computing principles",
-    color: "bg-cyan-500",
-    icon: "💻"
+    icon: "🧬"
   }
 ];
 
@@ -59,7 +38,8 @@ export const subjects: Subject[] = [
 export const categories: SubjectCategory[] = [
   "Mock Exams",
   "Revision Notes",
-  "Past Papers"
+  "Past Papers",
+  "Mark Scheme"
 ];
 
 // Mockup PDF data (later this could be dynamically loaded)
@@ -73,70 +53,151 @@ export interface PDF {
   dateAdded: string;
 }
 
-// Sample PDF data - this would be replaced with dynamic loading or a more complete dataset
+// Sample PDF data based on the actual files in the structure
 export const pdfs: PDF[] = [
+  // Chemistry - Past Papers
   {
-    id: "math-mock-1",
-    title: "Mathematics Mock Exam 2025 - Paper 1",
-    description: "Full mock exam with all topics covered in the syllabus",
-    path: "/pdfs/mathematics/mock-exams/math-mock-2025-paper-1.pdf",
-    subject: "mathematics",
-    category: "Mock Exams",
-    dateAdded: "2025-03-15"
+    id: "chem-paper1-questions",
+    title: "Chemistry Paper 1 - Question Paper",
+    description: "Edexcel Chemistry Paper 1 examination questions",
+    path: "/pdfs/Chemistry - Edexcel/Past Papers/Paper 1/Question Paper.pdf",
+    subject: "chemistry-edexcel",
+    category: "Past Papers",
+    dateAdded: "2025-01-10"
   },
   {
-    id: "math-notes-algebra",
-    title: "Algebra Comprehensive Notes",
-    description: "Detailed revision notes covering all algebra topics",
-    path: "/pdfs/mathematics/revision-notes/algebra-notes.pdf",
-    subject: "mathematics",
+    id: "chem-paper1-mark-scheme",
+    title: "Chemistry Paper 1 - Mark Scheme",
+    description: "Edexcel Chemistry Paper 1 examination mark scheme",
+    path: "/pdfs/Chemistry - Edexcel/Past Papers/Paper 1/Mark Scheme.pdf",
+    subject: "chemistry-edexcel",
+    category: "Mark Scheme",
+    dateAdded: "2025-01-10"
+  },
+  {
+    id: "chem-paper2-questions",
+    title: "Chemistry Paper 2 - Question Paper",
+    description: "Edexcel Chemistry Paper 2 examination questions",
+    path: "/pdfs/Chemistry - Edexcel/Past Papers/Paper 2/Question Paper.pdf",
+    subject: "chemistry-edexcel",
+    category: "Past Papers",
+    dateAdded: "2025-01-15"
+  },
+  {
+    id: "chem-paper2-mark-scheme",
+    title: "Chemistry Paper 2 - Mark Scheme",
+    description: "Edexcel Chemistry Paper 2 examination mark scheme",
+    path: "/pdfs/Chemistry - Edexcel/Past Papers/Paper 2/Mark Scheme.pdf",
+    subject: "chemistry-edexcel",
+    category: "Mark Scheme",
+    dateAdded: "2025-01-15"
+  },
+  
+  // Chemistry - Revision Notes (Selected examples)
+  {
+    id: "chem-atomic-structure",
+    title: "Atomic Structure",
+    description: "Notes on atomic structure and concepts",
+    path: "/pdfs/Chemistry - Edexcel/Revision Notes/Atomic Structure/Atomic Structure/pdf.pdf",
+    subject: "chemistry-edexcel",
+    category: "Revision Notes",
+    dateAdded: "2025-02-01"
+  },
+  {
+    id: "chem-periodic-table",
+    title: "Periodic Table",
+    description: "Notes covering the periodic table",
+    path: "/pdfs/Chemistry - Edexcel/Revision Notes/Atomic Structure/Periodic Table/sTVwdr5sN4VVrgSG.pdf",
+    subject: "chemistry-edexcel",
+    category: "Revision Notes",
+    dateAdded: "2025-02-02"
+  },
+  {
+    id: "chem-ionic-bonding",
+    title: "Ionic Bonding",
+    description: "Comprehensive notes on ionic bonding",
+    path: "/pdfs/Chemistry - Edexcel/Revision Notes/Atomic Structure/Ionic Bonding/qmQk5fC7Pq6MpBvv.pdf",
+    subject: "chemistry-edexcel",
+    category: "Revision Notes",
+    dateAdded: "2025-02-03"
+  },
+  
+  // English - Mock Exams
+  {
+    id: "english-paper1-mock",
+    title: "English Paper 1 Mock Exam",
+    description: "AQA English mock examination paper 1",
+    path: "/pdfs/English - AQA/Mock Exams/Paper 1.pdf",
+    subject: "english-aqa",
+    category: "Mock Exams",
+    dateAdded: "2025-03-01"
+  },
+  {
+    id: "english-paper2-mock",
+    title: "English Paper 2 Mock Exam",
+    description: "AQA English mock examination paper 2",
+    path: "/pdfs/English - AQA/Mock Exams/Paper 2.pdf",
+    subject: "english-aqa",
+    category: "Mock Exams",
+    dateAdded: "2025-03-02"
+  },
+  
+  // English - Mark Schemes
+  {
+    id: "english-paper1-mark-scheme",
+    title: "English Paper 1 Mark Scheme",
+    description: "AQA English paper 1 mark scheme",
+    path: "/pdfs/English - AQA/Mark Scheme/Paper1.pdf",
+    subject: "english-aqa",
+    category: "Mark Scheme",
+    dateAdded: "2025-03-05"
+  },
+  {
+    id: "english-paper2-mark-scheme",
+    title: "English Paper 2 Mark Scheme",
+    description: "AQA English paper 2 mark scheme",
+    path: "/pdfs/English - AQA/Mark Scheme/Paper2.pdf",
+    subject: "english-aqa",
+    category: "Mark Scheme",
+    dateAdded: "2025-03-06"
+  },
+  
+  // English - Revision Notes (Selected examples)
+  {
+    id: "english-macbeth",
+    title: "Macbeth Analysis",
+    description: "Comprehensive analysis of Shakespeare's Macbeth",
+    path: "/pdfs/English - AQA/Revision Notes/Shakespeare/Macbeth/pdf1.pdf",
+    subject: "english-aqa",
     category: "Revision Notes",
     dateAdded: "2025-02-10"
   },
   {
-    id: "math-past-2024",
-    title: "Mathematics Past Paper 2024",
-    description: "Official examination paper from 2024",
-    path: "/pdfs/mathematics/past-papers/math-2024.pdf",
-    subject: "mathematics",
-    category: "Past Papers",
-    dateAdded: "2025-01-05"
-  },
-  {
-    id: "english-mock-1",
-    title: "English Language Mock Exam 2025",
-    description: "Complete mock exam for English Language",
-    path: "/pdfs/english/mock-exams/english-mock-2025.pdf",
-    subject: "english",
-    category: "Mock Exams",
-    dateAdded: "2025-03-10"
-  },
-  {
-    id: "english-notes-shakespeare",
-    title: "Shakespeare Analysis Notes",
-    description: "In-depth analysis of Shakespeare's major works",
-    path: "/pdfs/english/revision-notes/shakespeare-analysis.pdf",
-    subject: "english",
+    id: "english-romeo-juliet",
+    title: "Romeo and Juliet Analysis",
+    description: "Study notes for Romeo and Juliet",
+    path: "/pdfs/English - AQA/Revision Notes/Shakespeare/Romeo and Juliet/pdf2.pdf",
+    subject: "english-aqa",
     category: "Revision Notes",
-    dateAdded: "2025-02-20"
+    dateAdded: "2025-02-12"
   },
   {
-    id: "science-mock-physics",
-    title: "Physics Mock Exam 2025",
-    description: "Complete physics mock examination",
-    path: "/pdfs/science/mock-exams/physics-mock-2025.pdf",
-    subject: "science",
-    category: "Mock Exams",
-    dateAdded: "2025-03-05"
-  },
-  {
-    id: "history-notes-ww2",
-    title: "World War II Comprehensive Notes",
-    description: "Detailed notes covering all aspects of WWII",
-    path: "/pdfs/history/revision-notes/ww2-notes.pdf",
-    subject: "history",
+    id: "english-inspector-calls",
+    title: "An Inspector Calls",
+    description: "Analysis notes for An Inspector Calls",
+    path: "/pdfs/English - AQA/Revision Notes/Modern Texts/An Inspector Calls/pdf9.pdf",
+    subject: "english-aqa",
     category: "Revision Notes",
     dateAdded: "2025-02-15"
+  },
+  {
+    id: "english-christmas-carol",
+    title: "A Christmas Carol",
+    description: "Study guide for Dickens' A Christmas Carol",
+    path: "/pdfs/English - AQA/Revision Notes/The 19th Century Novel/A Christmas Carol/pdf6.pdf",
+    subject: "english-aqa",
+    category: "Revision Notes",
+    dateAdded: "2025-02-18"
   }
 ];
 
