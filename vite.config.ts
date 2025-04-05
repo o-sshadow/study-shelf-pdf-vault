@@ -4,7 +4,7 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/study-shelf-pdf-vault/',
+  base: '/', // Change this for Netlify
   build: {
     outDir: 'dist',
     rollupOptions: {
