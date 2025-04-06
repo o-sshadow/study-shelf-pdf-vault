@@ -2,11 +2,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { PDF } from "@/data/subjects";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Download, Maximize, Minimize, Bookmark, BookmarkPlus, ChevronLeft, ChevronRight } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Form, FormField, FormItem, FormLabel, FormControl } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
 
 interface PDFViewerProps {
   pdf: PDF;
@@ -16,6 +19,11 @@ interface Annotation {
   text: string;
   page: number;
   timestamp: string;
+}
+
+interface AnnotationFormValues {
+  text: string;
+  page: number;
 }
 
 const PDFViewer = ({ pdf }: PDFViewerProps) => {
@@ -30,8 +38,19 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
     return savedAnnotations ? JSON.parse(savedAnnotations) : [];
   });
   
-  const [newAnnotation, setNewAnnotation] = useState("");
   const navigate = useNavigate();
+
+  const form = useForm<AnnotationFormValues>({
+    defaultValues: {
+      text: "",
+      page: currentPage
+    }
+  });
+
+  // Update form default page value when current page changes
+  useEffect(() => {
+    form.setValue("page", currentPage);
+  }, [currentPage, form]);
 
   // Listen for page changes from the PDF iframe
   useEffect(() => {
@@ -52,7 +71,7 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
     return () => window.removeEventListener('message', handleMessage);
   }, []);
 
-  // Add script to intercept PDF.js events
+  // Add script to intercept PDF.js events and enable mobile navigation
   useEffect(() => {
     const injectPageTracking = () => {
       if (iframeRef.current) {
@@ -64,7 +83,7 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
               const iframeWindow = iframe.contentWindow;
               if (!iframeWindow) return;
               
-              // Add script to track page changes
+              // Add script to track page changes and implement mobile navigation
               const script = iframeWindow.document.createElement('script');
               script.textContent = `
                 // Wait for PDF.js to be fully loaded
@@ -82,22 +101,57 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
                         window.parent.postMessage({ type: 'pagechange', page: evt.pageNumber }, '*');
                       });
                       
-                      // Add mobile touch controls for navigation
+                      // Fix mobile navigation by improving the touch controls
                       if (window.innerWidth < 768) {
+                        // Improve mobile navigation by directly modifying UI elements and adding touch events
                         const viewerContainer = document.getElementById('viewerContainer');
+                        const pageNumber = document.getElementById('pageNumber');
+                        
+                        // Make sure the page input is visible on mobile
+                        if (document.getElementById('toolbarViewerMiddle')) {
+                          document.getElementById('toolbarViewerMiddle').style.display = 'block';
+                          document.getElementById('toolbarViewerMiddle').style.maxWidth = 'none';
+                        }
+                        
+                        // Make page navigation buttons larger and more visible
+                        if (document.getElementById('previous')) {
+                          document.getElementById('previous').style.width = '3rem';
+                          document.getElementById('previous').style.height = '3rem';
+                          document.getElementById('previous').style.padding = '0.5rem';
+                        }
+                        
+                        if (document.getElementById('next')) {
+                          document.getElementById('next').style.width = '3rem';
+                          document.getElementById('next').style.height = '3rem';
+                          document.getElementById('next').style.padding = '0.5rem';
+                        }
+                        
+                        // Add custom swipe gesture handling
                         if (viewerContainer) {
                           let startX = 0;
+                          let startY = 0;
+                          let isScrolling = false;
                           
                           viewerContainer.addEventListener('touchstart', (e) => {
                             startX = e.touches[0].clientX;
-                          });
+                            startY = e.touches[0].clientY;
+                            isScrolling = false;
+                          }, { passive: true });
+                          
+                          viewerContainer.addEventListener('touchmove', (e) => {
+                            // Detect if user is scrolling vertically
+                            if (!isScrolling) {
+                              isScrolling = Math.abs(e.touches[0].clientY - startY) > 
+                                           Math.abs(e.touches[0].clientX - startX);
+                            }
+                          }, { passive: true });
                           
                           viewerContainer.addEventListener('touchend', (e) => {
                             const endX = e.changedTouches[0].clientX;
                             const diffX = endX - startX;
                             
-                            // If horizontal swipe is significant
-                            if (Math.abs(diffX) > 50) {
+                            // Only handle horizontal swipes when not scrolling vertically
+                            if (!isScrolling && Math.abs(diffX) > 70) {
                               if (diffX > 0) {
                                 // Swipe right - go to previous page
                                 window.PDFViewerApplication.page--;
@@ -105,6 +159,7 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
                                 // Swipe left - go to next page
                                 window.PDFViewerApplication.page++;
                               }
+                              e.preventDefault();
                             }
                           });
                         }
@@ -158,17 +213,17 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
     }
   };
 
-  const addAnnotation = () => {
-    if (newAnnotation.trim()) {
+  const addAnnotation = (formValues: AnnotationFormValues) => {
+    if (formValues.text.trim()) {
       const newNote: Annotation = {
-        text: newAnnotation,
-        page: currentPage,
+        text: formValues.text,
+        page: formValues.page,
         timestamp: new Date().toISOString()
       };
       const updatedAnnotations = [...annotations, newNote];
       setAnnotations(updatedAnnotations);
       localStorage.setItem(`annotations-${pdf.id}`, JSON.stringify(updatedAnnotations));
-      setNewAnnotation("");
+      form.reset({ text: "", page: currentPage });
     }
   };
 
@@ -185,19 +240,50 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
   const AnnotationsComponent = () => (
     <>
       <div className="grid gap-4 py-4">
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            value={newAnnotation}
-            onChange={(e) => setNewAnnotation(e.target.value)}
-            placeholder={`Add a note for page ${currentPage}...`}
-            className="flex-1 p-2 border rounded"
-            onKeyDown={(e) => e.key === 'Enter' && addAnnotation()}
-          />
-          <Button onClick={addAnnotation} size="sm">
-            <BookmarkPlus className="h-4 w-4" />
-          </Button>
-        </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(addAnnotation)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="text"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Note</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder={`Add a note...`}
+                      {...field}
+                      className="w-full"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="page"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Page</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      min={1}
+                      max={totalPages || 999}
+                      {...field}
+                      onChange={(e) => field.onChange(parseInt(e.target.value) || 1)}
+                      className="w-full"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full">
+              <BookmarkPlus className="h-4 w-4 mr-2" />
+              Add Annotation
+            </Button>
+          </form>
+        </Form>
+        
         {annotations.length > 0 ? (
           <div className="max-h-[300px] overflow-y-auto border rounded p-2">
             {annotations.map((note, index) => (
@@ -241,7 +327,7 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
                   Notes ({annotations.length})
                 </Button>
               </SheetTrigger>
-              <SheetContent>
+              <SheetContent size="lg">
                 <SheetHeader>
                   <SheetTitle>Annotations for {pdf.title}</SheetTitle>
                 </SheetHeader>
