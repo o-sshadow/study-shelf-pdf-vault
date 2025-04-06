@@ -14,6 +14,10 @@ import { Worker, Viewer } from '@react-pdf-viewer/core';
 import { PageChangeEvent, DocumentLoadEvent } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 
+// Import the toolbar plugin
+import { toolbarPlugin } from '@react-pdf-viewer/toolbar';
+import '@react-pdf-viewer/toolbar/lib/styles/index.css';
+
 interface PDFViewerProps {
   pdf: PDF;
 }
@@ -34,6 +38,10 @@ const NewPDFViewer = ({ pdf }: PDFViewerProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const isMobile = useIsMobile();
+  
+  // Initialize the toolbar plugin
+  const toolbarPluginInstance = toolbarPlugin();
+  const { Toolbar } = toolbarPluginInstance;
   
   const [annotations, setAnnotations] = useState<Annotation[]>(() => {
     const savedAnnotations = localStorage.getItem(`annotations-${pdf.id}`);
@@ -118,6 +126,7 @@ const NewPDFViewer = ({ pdf }: PDFViewerProps) => {
                       placeholder={`Add a note...`}
                       {...field}
                       className="w-full"
+                      onClick={(e) => e.stopPropagation()}
                     />
                   </FormControl>
                 </FormItem>
@@ -137,6 +146,7 @@ const NewPDFViewer = ({ pdf }: PDFViewerProps) => {
                       {...field}
                       onChange={(e) => field.onChange(parseInt(e.target.value) || 1)}
                       className="w-full"
+                      onClick={(e) => e.stopPropagation()}
                     />
                   </FormControl>
                 </FormItem>
@@ -234,10 +244,16 @@ const NewPDFViewer = ({ pdf }: PDFViewerProps) => {
         {/* Ensure the Worker and PDF viewer versions match by setting them explicitly */}
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
           <div style={{ height: '100%', width: '100%' }}>
+            {/* Add the toolbar */}
+            <div className="rpv-toolbar">
+              <Toolbar />
+            </div>
+            
             <Viewer 
               fileUrl={pdf.path} 
               onPageChange={handlePageChange}
               onDocumentLoad={handleDocumentLoad}
+              plugins={[toolbarPluginInstance]}
             />
           </div>
         </Worker>
