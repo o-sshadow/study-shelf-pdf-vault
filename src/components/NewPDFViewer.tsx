@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Form, FormField, FormItem, FormLabel, FormControl } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Worker, Viewer } from '@react-pdf-viewer/core';
+import { PageChangeEvent, DocumentLoadEvent } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 
 interface PDFViewerProps {
@@ -91,12 +92,14 @@ const NewPDFViewer = ({ pdf }: PDFViewerProps) => {
     return new Date(timestamp).toLocaleString();
   };
 
-  const handlePageChange = (pageIndex: number) => {
-    setCurrentPage(pageIndex + 1);
+  // Fix TypeScript error by using the correct event type from the PDF viewer
+  const handlePageChange = (e: PageChangeEvent) => {
+    setCurrentPage(e.currentPage + 1);
   };
 
-  const handleDocumentLoad = ({ numPages }: { numPages: number }) => {
-    setTotalPages(numPages);
+  // Fix TypeScript error by using the correct event type from the PDF viewer
+  const handleDocumentLoad = (e: DocumentLoadEvent) => {
+    setTotalPages(e.doc.numPages);
   };
 
   const AnnotationsComponent = () => (
@@ -228,6 +231,7 @@ const NewPDFViewer = ({ pdf }: PDFViewerProps) => {
       </div>
       
       <div className={`bg-gray-100 border rounded-b-lg relative ${isFullscreen ? 'flex-1' : 'h-[70vh]'}`}>
+        {/* Ensure the Worker and PDF viewer versions match by setting them explicitly */}
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
           <div style={{ height: '100%', width: '100%' }}>
             <Viewer 

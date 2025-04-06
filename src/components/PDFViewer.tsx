@@ -327,7 +327,8 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
                   Notes ({annotations.length})
                 </Button>
               </SheetTrigger>
-              <SheetContent size="lg">
+              {/* Remove the size property which is causing the TS error */}
+              <SheetContent>
                 <SheetHeader>
                   <SheetTitle>Annotations for {pdf.title}</SheetTitle>
                 </SheetHeader>
