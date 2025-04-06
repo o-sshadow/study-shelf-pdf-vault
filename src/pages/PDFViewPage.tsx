@@ -2,7 +2,7 @@
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
-import PDFViewer from "@/components/PDFViewer";
+import NewPDFViewer from "@/components/NewPDFViewer";
 import { pdfs } from "@/data/subjects";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
@@ -46,7 +46,7 @@ const PDFViewPage = () => {
         </Link>
       </div>
 
-      <PDFViewer pdf={pdf} />
+      <NewPDFViewer pdf={pdf} />
 
       <div className="flex justify-between mt-6">
         {prevPdf ? (

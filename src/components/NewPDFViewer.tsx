@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { PDF } from "@/data/subjects";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,13 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Form, FormField, FormItem, FormLabel, FormControl } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
+import { Worker, Viewer } from '@react-pdf-viewer/core';
+import { PageChangeEvent, DocumentLoadEvent } from '@react-pdf-viewer/core';
+import '@react-pdf-viewer/core/lib/styles/index.css';
+
+// Import the toolbar plugin
+import { toolbarPlugin } from '@react-pdf-viewer/toolbar';
+import '@react-pdf-viewer/toolbar/lib/styles/index.css';
 
 interface PDFViewerProps {
   pdf: PDF;
@@ -26,12 +33,15 @@ interface AnnotationFormValues {
   page: number;
 }
 
-const PDFViewer = ({ pdf }: PDFViewerProps) => {
+const NewPDFViewer = ({ pdf }: PDFViewerProps) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
   const isMobile = useIsMobile();
+  
+  // Initialize the toolbar plugin
+  const toolbarPluginInstance = toolbarPlugin();
+  const { Toolbar } = toolbarPluginInstance;
   
   const [annotations, setAnnotations] = useState<Annotation[]>(() => {
     const savedAnnotations = localStorage.getItem(`annotations-${pdf.id}`);
@@ -52,136 +62,6 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
     form.setValue("page", currentPage);
   }, [currentPage, form]);
 
-  // Listen for page changes from the PDF iframe
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.data && typeof event.data === 'object') {
-        // Handle page change messages from PDF.js
-        if (event.data.type === 'pagechange') {
-          setCurrentPage(event.data.page);
-        }
-        // Handle total pages information
-        if (event.data.type === 'pagesloaded') {
-          setTotalPages(event.data.total);
-        }
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, []);
-
-  // Add script to intercept PDF.js events and enable mobile navigation
-  useEffect(() => {
-    const injectPageTracking = () => {
-      if (iframeRef.current) {
-        try {
-          const iframe = iframeRef.current;
-          iframe.onload = () => {
-            // Try to access iframe content after it's loaded
-            try {
-              const iframeWindow = iframe.contentWindow;
-              if (!iframeWindow) return;
-              
-              // Add script to track page changes and implement mobile navigation
-              const script = iframeWindow.document.createElement('script');
-              script.textContent = `
-                // Wait for PDF.js to be fully loaded
-                window.addEventListener('DOMContentLoaded', () => {
-                  const interval = setInterval(() => {
-                    if (window.PDFViewerApplication && window.PDFViewerApplication.pdfViewer) {
-                      clearInterval(interval);
-                      
-                      // Get total pages
-                      const totalPages = window.PDFViewerApplication.pagesCount;
-                      window.parent.postMessage({ type: 'pagesloaded', total: totalPages }, '*');
-                      
-                      // Track page changes
-                      window.PDFViewerApplication.eventBus.on('pagechanging', (evt) => {
-                        window.parent.postMessage({ type: 'pagechange', page: evt.pageNumber }, '*');
-                      });
-                      
-                      // Fix mobile navigation by improving the touch controls
-                      if (window.innerWidth < 768) {
-                        // Improve mobile navigation by directly modifying UI elements and adding touch events
-                        const viewerContainer = document.getElementById('viewerContainer');
-                        const pageNumber = document.getElementById('pageNumber');
-                        
-                        // Make sure the page input is visible on mobile
-                        if (document.getElementById('toolbarViewerMiddle')) {
-                          document.getElementById('toolbarViewerMiddle').style.display = 'block';
-                          document.getElementById('toolbarViewerMiddle').style.maxWidth = 'none';
-                        }
-                        
-                        // Make page navigation buttons larger and more visible
-                        if (document.getElementById('previous')) {
-                          document.getElementById('previous').style.width = '3rem';
-                          document.getElementById('previous').style.height = '3rem';
-                          document.getElementById('previous').style.padding = '0.5rem';
-                        }
-                        
-                        if (document.getElementById('next')) {
-                          document.getElementById('next').style.width = '3rem';
-                          document.getElementById('next').style.height = '3rem';
-                          document.getElementById('next').style.padding = '0.5rem';
-                        }
-                        
-                        // Add custom swipe gesture handling
-                        if (viewerContainer) {
-                          let startX = 0;
-                          let startY = 0;
-                          let isScrolling = false;
-                          
-                          viewerContainer.addEventListener('touchstart', (e) => {
-                            startX = e.touches[0].clientX;
-                            startY = e.touches[0].clientY;
-                            isScrolling = false;
-                          }, { passive: true });
-                          
-                          viewerContainer.addEventListener('touchmove', (e) => {
-                            // Detect if user is scrolling vertically
-                            if (!isScrolling) {
-                              isScrolling = Math.abs(e.touches[0].clientY - startY) > 
-                                           Math.abs(e.touches[0].clientX - startX);
-                            }
-                          }, { passive: true });
-                          
-                          viewerContainer.addEventListener('touchend', (e) => {
-                            const endX = e.changedTouches[0].clientX;
-                            const diffX = endX - startX;
-                            
-                            // Only handle horizontal swipes when not scrolling vertically
-                            if (!isScrolling && Math.abs(diffX) > 70) {
-                              if (diffX > 0) {
-                                // Swipe right - go to previous page
-                                window.PDFViewerApplication.page--;
-                              } else {
-                                // Swipe left - go to next page
-                                window.PDFViewerApplication.page++;
-                              }
-                              e.preventDefault();
-                            }
-                          });
-                        }
-                      }
-                    }
-                  }, 200);
-                });
-              `;
-              iframeWindow.document.head.appendChild(script);
-            } catch (error) {
-              console.error("Error accessing iframe content:", error);
-            }
-          };
-        } catch (error) {
-          console.error("Error setting up iframe:", error);
-        }
-      }
-    };
-
-    injectPageTracking();
-  }, []);
-
   const toggleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
   };
@@ -194,23 +74,6 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
-
-  const navigatePage = (direction: 'prev' | 'next') => {
-    if (!iframeRef.current || !iframeRef.current.contentWindow) return;
-    
-    try {
-      const contentWindow = iframeRef.current.contentWindow as any;
-      if (contentWindow.PDFViewerApplication) {
-        if (direction === 'prev' && currentPage > 1) {
-          contentWindow.PDFViewerApplication.page--;
-        } else if (direction === 'next' && currentPage < totalPages) {
-          contentWindow.PDFViewerApplication.page++;
-        }
-      }
-    } catch (error) {
-      console.error("Error navigating pages:", error);
-    }
   };
 
   const addAnnotation = (formValues: AnnotationFormValues) => {
@@ -237,6 +100,16 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
     return new Date(timestamp).toLocaleString();
   };
 
+  // Fix TypeScript error by using the correct event type from the PDF viewer
+  const handlePageChange = (e: PageChangeEvent) => {
+    setCurrentPage(e.currentPage + 1);
+  };
+
+  // Fix TypeScript error by using the correct event type from the PDF viewer
+  const handleDocumentLoad = (e: DocumentLoadEvent) => {
+    setTotalPages(e.doc.numPages);
+  };
+
   const AnnotationsComponent = () => (
     <>
       <div className="grid gap-4 py-4">
@@ -253,6 +126,7 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
                       placeholder={`Add a note...`}
                       {...field}
                       className="w-full"
+                      onClick={(e) => e.stopPropagation()}
                     />
                   </FormControl>
                 </FormItem>
@@ -272,6 +146,7 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
                       {...field}
                       onChange={(e) => field.onChange(parseInt(e.target.value) || 1)}
                       className="w-full"
+                      onClick={(e) => e.stopPropagation()}
                     />
                   </FormControl>
                 </FormItem>
@@ -327,7 +202,6 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
                   Notes ({annotations.length})
                 </Button>
               </SheetTrigger>
-              {/* Remove the size property which is causing the TS error */}
               <SheetContent>
                 <SheetHeader>
                   <SheetTitle>Annotations for {pdf.title}</SheetTitle>
@@ -367,39 +241,29 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
       </div>
       
       <div className={`bg-gray-100 border rounded-b-lg relative ${isFullscreen ? 'flex-1' : 'h-[70vh]'}`}>
-        <iframe
-          ref={iframeRef}
-          src={pdf.path}
-          title={pdf.title}
-          className="w-full h-full rounded-b-lg"
-        />
+        {/* Ensure the Worker and PDF viewer versions match by setting them explicitly */}
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+          <div style={{ height: '100%', width: '100%' }}>
+            {/* Add the toolbar */}
+            <div className="rpv-toolbar">
+              <Toolbar />
+            </div>
+            
+            <Viewer 
+              fileUrl={pdf.path} 
+              onPageChange={handlePageChange}
+              onDocumentLoad={handleDocumentLoad}
+              plugins={[toolbarPluginInstance]}
+            />
+          </div>
+        </Worker>
         
-        {/* Page navigation controls */}
+        {/* Page navigation display */}
         <div className="absolute bottom-4 left-0 right-0 flex justify-center items-center gap-4">
           <div className="bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow flex items-center">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => navigatePage('prev')}
-              disabled={currentPage <= 1}
-              className="h-8 w-8 p-0"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </Button>
-            
-            <span className="mx-2 text-sm font-medium">
+            <span className="text-sm font-medium">
               {currentPage} / {totalPages > 0 ? totalPages : '...'}
             </span>
-            
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => navigatePage('next')}
-              disabled={currentPage >= totalPages}
-              className="h-8 w-8 p-0"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </Button>
           </div>
         </div>
       </div>
@@ -407,4 +271,4 @@ const PDFViewer = ({ pdf }: PDFViewerProps) => {
   );
 };
 
-export default PDFViewer;
+export default NewPDFViewer;
