@@ -8,7 +8,7 @@ export interface Subject {
   description: string;
   color: string;
   icon: string;
-  topics: string[];
+  topics?: string[]; // Make topics optional
 }
 
 // PDF interface definition
