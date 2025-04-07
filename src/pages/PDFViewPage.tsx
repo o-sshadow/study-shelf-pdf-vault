@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
@@ -42,8 +41,9 @@ const PDFViewPage = () => {
           className="text-study-600 hover:text-study-800 flex items-center gap-1 mb-4"
         >
           <ArrowLeft size={20} />
-          Back to {pdf.category}
+          <span>Back to {pdf.category}</span>
         </Link>
+        <h1 className="text-2xl font-bold text-foreground mb-4">{pdf.title}</h1>
       </div>
 
       <NewPDFViewer pdf={pdf} />
