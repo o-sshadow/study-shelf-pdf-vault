@@ -1,14 +1,24 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
 import CategoryCard from "@/components/CategoryCard";
 import { categories, getSubjectById, getPDFsBySubjectAndCategory } from "@/data/subjects";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
 const SubjectPage = () => {
   const { subjectId } = useParams<{ subjectId: string }>();
+  const [searchTerm, setSearchTerm] = useState("");
   const subject = getSubjectById(subjectId || "");
+
+  // Filter categories based on search term
+  const filteredCategories = searchTerm
+    ? categories.filter(category =>
+        category.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : categories;
 
   if (!subject) {
     return (
@@ -52,23 +62,48 @@ const SubjectPage = () => {
           </div>
           <h1 className="text-3xl font-bold text-gray-900">{subject.name}</h1>
         </div>
-        <p className="text-lg text-gray-600">{subject.description}</p>
+        <p className="text-lg text-gray-600 mb-6">{subject.description}</p>
+        
+        {/* Search bar */}
+        <div className="relative mb-6">
+          <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+          <Input
+            type="text"
+            placeholder="Search categories..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+        </div>
       </div>
 
       <h2 className="text-2xl font-bold mb-4 text-gray-800">Categories</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {categories.map((category) => {
-          const resourceCount = getPDFsBySubjectAndCategory(subject.id, category).length;
-          return (
-            <CategoryCard 
-              key={category} 
-              category={category} 
-              subjectId={subject.id} 
-              count={resourceCount}
-            />
-          );
-        })}
-      </div>
+      
+      {filteredCategories.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {filteredCategories.map((category) => {
+            const resourceCount = getPDFsBySubjectAndCategory(subject.id, category).length;
+            return (
+              <CategoryCard 
+                key={category} 
+                category={category} 
+                subjectId={subject.id} 
+                count={resourceCount}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
+          <h3 className="text-xl font-medium text-gray-700 mb-2">No categories found</h3>
+          <p className="text-gray-600 mb-6">
+            No categories match your search for "{searchTerm}".
+          </p>
+          <Button onClick={() => setSearchTerm("")}>
+            Clear search
+          </Button>
+        </div>
+      )}
     </MainLayout>
   );
 };

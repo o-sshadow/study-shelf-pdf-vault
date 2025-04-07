@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
 import PDFCard from "@/components/PDFCard";
@@ -9,14 +9,25 @@ import {
   SubjectCategory 
 } from "@/data/subjects";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
 
 const CategoryPage = () => {
   const { subjectId, categoryName } = useParams<{ subjectId: string; categoryName: string }>();
+  const [searchTerm, setSearchTerm] = useState("");
   
   const subject = getSubjectById(subjectId || "");
   const category = decodeURIComponent(categoryName || "") as SubjectCategory;
   
-  const pdfs = getPDFsBySubjectAndCategory(subjectId || "", category);
+  const allPdfs = getPDFsBySubjectAndCategory(subjectId || "", category);
+  
+  // Filter PDFs based on search term
+  const pdfs = searchTerm 
+    ? allPdfs.filter(pdf => 
+        pdf.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        pdf.description.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : allPdfs;
 
   if (!subject) {
     return (
@@ -60,9 +71,21 @@ const CategoryPage = () => {
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           {category} - {subject.name}
         </h1>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-600 mb-4">
           Browse available {category.toLowerCase()} for {subject.name}
         </p>
+        
+        {/* Search bar */}
+        <div className="relative mb-6">
+          <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+          <Input
+            type="text"
+            placeholder={`Search ${category.toLowerCase()}...`}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+        </div>
       </div>
 
       {pdfs.length > 0 ? (
@@ -73,12 +96,21 @@ const CategoryPage = () => {
         </div>
       ) : (
         <div className="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
-          <h3 className="text-xl font-medium text-gray-700 mb-2">No resources available</h3>
+          <h3 className="text-xl font-medium text-gray-700 mb-2">No resources found</h3>
           <p className="text-gray-600 mb-6">
-            There are currently no {category.toLowerCase()} available for {subject.name}.
+            {searchTerm 
+              ? `No ${category.toLowerCase()} match your search for "${searchTerm}".` 
+              : `There are currently no ${category.toLowerCase()} available for ${subject.name}.`}
           </p>
+          {searchTerm && (
+            <Button onClick={() => setSearchTerm("")} className="mb-4">
+              Clear search
+            </Button>
+          )}
           <Link to={`/subject/${subjectId}`}>
-            <Button>Return to {subject.name}</Button>
+            <Button variant={searchTerm ? "outline" : "default"}>
+              Return to {subject.name}
+            </Button>
           </Link>
         </div>
       )}
