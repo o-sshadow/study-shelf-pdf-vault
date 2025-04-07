@@ -1,4 +1,3 @@
-
 import { PDF } from "../types";
 
 export const physicsPdfs: PDF[] = [
@@ -227,5 +226,99 @@ export const physicsPdfs: PDF[] = [
     subject: "physics",
     category: "Revision Notes",
     dateAdded: "2025-02-25"
+  },
+
+  // Physics - Past Papers
+  {
+    id: "physics-past-paper-1-questions",
+    title: "Paper 1 Questions",
+    description: "Physics Paper 1 Past Exam Questions",
+    path: "/pdfs/Physics/Past Papers/paper1-questions.pdf",
+    subject: "physics",
+    category: "Past Papers",
+    dateAdded: "2025-02-26"
+  },
+  {
+    id: "physics-past-paper-1-answers",
+    title: "Paper 1 Mark Scheme",
+    description: "Physics Paper 1 Mark Scheme and Answers",
+    path: "/pdfs/Physics/Past Papers/paper1-mark-scheme.pdf",
+    subject: "physics",
+    category: "Past Papers",
+    dateAdded: "2025-02-26"
+  },
+  {
+    id: "physics-past-paper-2-questions",
+    title: "Paper 2 Questions",
+    description: "Physics Paper 2 Past Exam Questions",
+    path: "/pdfs/Physics/Past Papers/paper2-questions.pdf",
+    subject: "physics",
+    category: "Past Papers",
+    dateAdded: "2025-02-27"
+  },
+  {
+    id: "physics-past-paper-2-answers",
+    title: "Paper 2 Mark Scheme",
+    description: "Physics Paper 2 Mark Scheme and Answers",
+    path: "/pdfs/Physics/Past Papers/paper2-mark-scheme.pdf",
+    subject: "physics",
+    category: "Past Papers",
+    dateAdded: "2025-02-27"
+  },
+  {
+    id: "physics-past-paper-3-questions",
+    title: "Paper 3 Questions",
+    description: "Physics Paper 3 Past Exam Questions",
+    path: "/pdfs/Physics/Past Papers/paper3-questions.pdf",
+    subject: "physics",
+    category: "Past Papers",
+    dateAdded: "2025-02-28"
+  },
+  {
+    id: "physics-past-paper-3-answers",
+    title: "Paper 3 Mark Scheme",
+    description: "Physics Paper 3 Mark Scheme and Answers",
+    path: "/pdfs/Physics/Past Papers/paper3-mark-scheme.pdf",
+    subject: "physics",
+    category: "Past Papers",
+    dateAdded: "2025-02-28"
+  },
+
+  // Physics - Mock Exams
+  {
+    id: "physics-mock-exam-1-questions",
+    title: "Mock Exam 1 Questions",
+    description: "Physics Mock Exam Paper 1 Questions",
+    path: "/pdfs/Physics/Mock Exams/mock1-questions.pdf",
+    subject: "physics",
+    category: "Mock Exams",
+    dateAdded: "2025-03-01"
+  },
+  {
+    id: "physics-mock-exam-1-answers",
+    title: "Mock Exam 1 Mark Scheme",
+    description: "Physics Mock Exam Paper 1 Mark Scheme",
+    path: "/pdfs/Physics/Mock Exams/mock1-mark-scheme.pdf",
+    subject: "physics",
+    category: "Mock Exams",
+    dateAdded: "2025-03-01"
+  },
+  {
+    id: "physics-mock-exam-2-questions",
+    title: "Mock Exam 2 Questions",
+    description: "Physics Mock Exam Paper 2 Questions",
+    path: "/pdfs/Physics/Mock Exams/mock2-questions.pdf",
+    subject: "physics",
+    category: "Mock Exams",
+    dateAdded: "2025-03-02"
+  },
+  {
+    id: "physics-mock-exam-2-answers",
+    title: "Mock Exam 2 Mark Scheme",
+    description: "Physics Mock Exam Paper 2 Mark Scheme",
+    path: "/pdfs/Physics/Mock Exams/mock2-mark-scheme.pdf",
+    subject: "physics",
+    category: "Mock Exams",
+    dateAdded: "2025-03-02"
   }
 ];

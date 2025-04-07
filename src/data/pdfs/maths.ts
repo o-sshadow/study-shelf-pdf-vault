@@ -1,4 +1,3 @@
-
 import { PDF } from "../types";
 
 export const mathsPdfs: PDF[] = [
@@ -227,5 +226,117 @@ export const mathsPdfs: PDF[] = [
     subject: "maths",
     category: "Revision Notes",
     dateAdded: "2025-02-25"
+  },
+
+  // Maths - Past Papers
+  {
+    id: "maths-past-paper-1-questions",
+    title: "Paper 1 (Non-Calculator) Questions",
+    description: "Maths Paper 1 (Non-Calculator) Past Exam Questions",
+    path: "/pdfs/Maths/Past Papers/paper1-questions.pdf",
+    subject: "maths",
+    category: "Past Papers",
+    dateAdded: "2025-03-05"
+  },
+  {
+    id: "maths-past-paper-1-answers",
+    title: "Paper 1 (Non-Calculator) Mark Scheme",
+    description: "Maths Paper 1 (Non-Calculator) Mark Scheme and Answers",
+    path: "/pdfs/Maths/Past Papers/paper1-mark-scheme.pdf",
+    subject: "maths",
+    category: "Past Papers",
+    dateAdded: "2025-03-05"
+  },
+  {
+    id: "maths-past-paper-2-questions",
+    title: "Paper 2 (Calculator) Questions",
+    description: "Maths Paper 2 (Calculator) Past Exam Questions",
+    path: "/pdfs/Maths/Past Papers/paper2-questions.pdf",
+    subject: "maths",
+    category: "Past Papers",
+    dateAdded: "2025-03-06"
+  },
+  {
+    id: "maths-past-paper-2-answers",
+    title: "Paper 2 (Calculator) Mark Scheme",
+    description: "Maths Paper 2 (Calculator) Mark Scheme and Answers",
+    path: "/pdfs/Maths/Past Papers/paper2-mark-scheme.pdf",
+    subject: "maths",
+    category: "Past Papers",
+    dateAdded: "2025-03-06"
+  },
+  {
+    id: "maths-past-paper-3-questions",
+    title: "Paper 3 (Calculator) Questions",
+    description: "Maths Paper 3 (Calculator) Past Exam Questions",
+    path: "/pdfs/Maths/Past Papers/paper3-questions.pdf",
+    subject: "maths",
+    category: "Past Papers",
+    dateAdded: "2025-03-07"
+  },
+  {
+    id: "maths-past-paper-3-answers",
+    title: "Paper 3 (Calculator) Mark Scheme",
+    description: "Maths Paper 3 (Calculator) Mark Scheme and Answers",
+    path: "/pdfs/Maths/Past Papers/paper3-mark-scheme.pdf",
+    subject: "maths",
+    category: "Past Papers",
+    dateAdded: "2025-03-07"
+  },
+
+  // Maths - Mock Exams
+  {
+    id: "maths-mock-exam-1-questions",
+    title: "Mock Exam 1 Questions",
+    description: "Maths Mock Exam Paper 1 Questions",
+    path: "/pdfs/Maths/Mock Exams/mock1-questions.pdf",
+    subject: "maths",
+    category: "Mock Exams",
+    dateAdded: "2025-03-10"
+  },
+  {
+    id: "maths-mock-exam-1-answers",
+    title: "Mock Exam 1 Mark Scheme",
+    description: "Maths Mock Exam Paper 1 Mark Scheme",
+    path: "/pdfs/Maths/Mock Exams/mock1-mark-scheme.pdf",
+    subject: "maths",
+    category: "Mock Exams",
+    dateAdded: "2025-03-10"
+  },
+  {
+    id: "maths-mock-exam-2-questions",
+    title: "Mock Exam 2 Questions",
+    description: "Maths Mock Exam Paper 2 Questions",
+    path: "/pdfs/Maths/Mock Exams/mock2-questions.pdf",
+    subject: "maths",
+    category: "Mock Exams",
+    dateAdded: "2025-03-11"
+  },
+  {
+    id: "maths-mock-exam-2-answers",
+    title: "Mock Exam 2 Mark Scheme",
+    description: "Maths Mock Exam Paper 2 Mark Scheme",
+    path: "/pdfs/Maths/Mock Exams/mock2-mark-scheme.pdf",
+    subject: "maths",
+    category: "Mock Exams",
+    dateAdded: "2025-03-11"
+  },
+  {
+    id: "maths-mock-exam-foundation-questions",
+    title: "Foundation Tier Mock Exam Questions",
+    description: "Maths Foundation Tier Mock Exam Questions",
+    path: "/pdfs/Maths/Mock Exams/foundation-questions.pdf",
+    subject: "maths",
+    category: "Mock Exams",
+    dateAdded: "2025-03-12"
+  },
+  {
+    id: "maths-mock-exam-foundation-answers",
+    title: "Foundation Tier Mock Exam Mark Scheme",
+    description: "Maths Foundation Tier Mock Exam Mark Scheme",
+    path: "/pdfs/Maths/Mock Exams/foundation-mark-scheme.pdf",
+    subject: "maths",
+    category: "Mock Exams",
+    dateAdded: "2025-03-12"
   }
 ];

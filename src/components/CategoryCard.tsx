@@ -1,52 +1,48 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import type { SubjectCategory } from "@/data";
+import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronRight, FolderOpen } from "lucide-react";
 
 interface CategoryCardProps {
-  category: SubjectCategory;
+  category: string;
   subjectId: string;
   count: number;
 }
 
-const getCategoryIcon = (category: SubjectCategory) => {
-  switch (category) {
-    case "Mock Exams":
-      return "📝";
-    case "Revision Notes":
-      return "📓";
-    case "Past Papers":
-      return "📄";
-    default:
-      return "📁";
-  }
-};
-
-const getCategoryColor = (category: SubjectCategory) => {
-  switch (category) {
-    case "Mock Exams":
-      return "bg-blue-500";
-    case "Revision Notes":
-      return "bg-green-500";
-    case "Past Papers":
-      return "bg-amber-500";
-    default:
-      return "bg-gray-500";
-  }
-};
-
 const CategoryCard = ({ category, subjectId, count }: CategoryCardProps) => {
+  const encodedCategory = encodeURIComponent(category);
+
   return (
-    <Link
-      to={`/subject/${subjectId}/category/${encodeURIComponent(category)}`}
-      className="block p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white border border-gray-100 hover:border-study-200"
-    >
-      <div className={`w-12 h-12 rounded-full ${getCategoryColor(category)} flex items-center justify-center text-white text-2xl mb-4`}>
-        {getCategoryIcon(category)}
-      </div>
-      <h3 className="text-xl font-bold mb-2 text-gray-900">{category}</h3>
-      <p className="text-gray-600">{count} resources available</p>
-    </Link>
+    <Card className="card-hover overflow-hidden border group transition-all">
+      <CardHeader className="p-5 pb-0">
+        <div className="bg-study/10 text-study dark:bg-study/20 p-3 rounded-xl w-fit">
+          <FolderOpen className="h-5 w-5" />
+        </div>
+      </CardHeader>
+      <CardContent className="p-5 pt-4">
+        <h3 className="text-lg font-medium mb-1">{category}</h3>
+        <p className="text-muted-foreground text-sm">
+          {count} {count === 1 ? 'resource' : 'resources'} available
+        </p>
+      </CardContent>
+      <CardFooter className="p-5 pt-0">
+        <Button 
+          variant="outline" 
+          asChild 
+          className="w-full group-hover:border-study group-hover:text-study transition-colors"
+        >
+          <Link 
+            to={`/subject/${subjectId}/category/${encodedCategory}`}
+            className="flex justify-between items-center"
+          >
+            <span>Browse Content</span>
+            <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

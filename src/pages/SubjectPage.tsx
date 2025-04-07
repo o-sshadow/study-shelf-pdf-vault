@@ -6,7 +6,7 @@ import CategoryCard from "@/components/CategoryCard";
 import { categories, getSubjectById, getPDFsBySubjectAndCategory } from "@/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { ArrowLeft, FolderClosed, Search } from "lucide-react";
 
 const SubjectPage = () => {
   const { subjectId } = useParams<{ subjectId: string }>();
@@ -24,11 +24,11 @@ const SubjectPage = () => {
     return (
       <MainLayout>
         <div className="text-center py-12">
-          <h2 className="text-2xl font-bold text-red-500">Subject not found</h2>
+          <h2 className="text-2xl font-bold text-destructive">Subject not found</h2>
           <p className="mt-4 mb-8">The subject you're looking for doesn't exist.</p>
-          <Link to="/">
-            <Button>Return to Home</Button>
-          </Link>
+          <Button asChild>
+            <Link to="/">Return to Home</Link>
+          </Button>
         </div>
       </MainLayout>
     );
@@ -36,48 +36,48 @@ const SubjectPage = () => {
 
   return (
     <MainLayout>
-      <div className="mb-6">
-        <Link to="/" className="text-study-600 hover:text-study-800 flex items-center gap-1 mb-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="lucide lucide-arrow-left"
-          >
-            <path d="m12 19-7-7 7-7" />
-            <path d="M19 12H5" />
-          </svg>
-          Back to Subjects
+      <div className="mb-8">
+        <Link to="/" className="text-study inline-flex items-center gap-1 mb-6 group">
+          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+          <span>Back to Subjects</span>
         </Link>
         
-        <div className="flex items-center gap-3 mb-4">
-          <div className={`w-12 h-12 rounded-full ${subject.color} flex items-center justify-center text-white text-2xl`}>
+        <div className="flex flex-col md:flex-row md:items-center gap-6 mb-8">
+          <div className={`w-16 h-16 rounded-xl ${subject.color} flex items-center justify-center text-3xl shrink-0`}>
             {subject.icon}
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">{subject.name}</h1>
+          <div>
+            <h1 className="text-3xl font-heading font-bold mb-2">{subject.name}</h1>
+            <p className="text-lg text-muted-foreground">{subject.description}</p>
+          </div>
         </div>
-        <p className="text-lg text-gray-600 mb-6">{subject.description}</p>
+        
+        {/* Topic tags */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {subject.topics.map((topic) => (
+            <div key={topic} className="px-3 py-1 bg-secondary rounded-full text-sm text-muted-foreground">
+              {topic}
+            </div>
+          ))}
+        </div>
         
         {/* Search bar */}
-        <div className="relative mb-6">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+        <div className="relative mb-8">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             type="text"
             placeholder="Search categories..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+            className="pl-10 h-12"
           />
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">Categories</h2>
+      <div className="flex items-center gap-2 mb-6">
+        <FolderClosed className="h-5 w-5 text-study" />
+        <h2 className="text-2xl font-bold">Categories</h2>
+      </div>
       
       {filteredCategories.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -94,9 +94,12 @@ const SubjectPage = () => {
           })}
         </div>
       ) : (
-        <div className="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
-          <h3 className="text-xl font-medium text-gray-700 mb-2">No categories found</h3>
-          <p className="text-gray-600 mb-6">
+        <div className="text-center py-12 rounded-lg border border-border bg-card">
+          <div className="inline-flex items-center justify-center p-3 mb-4 rounded-full bg-muted">
+            <Search className="h-5 w-5 text-muted-foreground" />
+          </div>
+          <h3 className="text-xl font-medium mb-2">No categories found</h3>
+          <p className="text-muted-foreground mb-6">
             No categories match your search for "{searchTerm}".
           </p>
           <Button onClick={() => setSearchTerm("")}>

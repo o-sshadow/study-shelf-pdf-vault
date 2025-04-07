@@ -64,10 +64,12 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				study: {
-					50: '#f0f4ff',
-					100: '#dde5ff',
-					200: '#c3d0ff',
-					300: '#9db1ff',
+					DEFAULT: 'hsl(var(--study))',
+					foreground: 'hsl(var(--study-foreground))',
+					50: '#f0f6ff',
+					100: '#dde9ff',
+					200: '#c3d4ff',
+					300: '#9db4ff',
 					400: '#7288ff',
 					500: '#4c61f5',
 					600: '#3a42ea',
@@ -98,14 +100,40 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					from: { 
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					to: { 
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'slide-in': {
+					from: { 
+						transform: 'translateX(-100%)'
+					},
+					to: { 
+						transform: 'translateX(0)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.5s ease-out',
+				'slide-in': 'slide-in 0.3s ease-out'
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
+				heading: ['Poppins', 'sans-serif'],
+			},
+			boxShadow: {
+				'modern': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+				'modern-lg': '0 10px 30px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+				'modern-dark': '0 4px 20px -2px rgba(0, 0, 0, 0.2)'
 			}
 		}
 	},
