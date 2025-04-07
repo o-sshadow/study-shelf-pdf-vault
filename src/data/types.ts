@@ -1,4 +1,3 @@
-
 // Define the available subject categories
 export type SubjectCategory = "Mock Exams" | "Revision Notes" | "Past Papers" | "Mark Scheme";
 
@@ -9,6 +8,7 @@ export interface Subject {
   description: string;
   color: string;
   icon: string;
+  topics: string[];
 }
 
 // PDF interface definition
