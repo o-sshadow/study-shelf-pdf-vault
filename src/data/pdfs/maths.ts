@@ -146,5 +146,86 @@ export const mathsPdfs: PDF[] = [
     subject: "maths",
     category: "Revision Notes",
     dateAdded: "2025-02-16"
+  },
+  {
+    id: "math-direct-inverse-proportion",
+    title: "Direct and Inverse Proportion",
+    description: "Working with proportional relationships",
+    path: "/pdfs/Maths/Revision Notes/directandinverseproporton.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-17"
+  },
+  {
+    id: "math-circle-equation",
+    title: "Equation of a Circle",
+    description: "Deriving and working with circle equations",
+    path: "/pdfs/Maths/Revision Notes/equationofacircle.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-18"
+  },
+  {
+    id: "math-estimating-gradients",
+    title: "Estimating Gradients and Areas Under Graphs",
+    description: "Techniques for calculus approximations",
+    path: "/pdfs/Maths/Revision Notes/estimatinggradientsandareasundergraphs.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-19"
+  },
+  {
+    id: "math-exchange-rates",
+    title: "Exchange Rates and Best Buys",
+    description: "Financial mathematics applications",
+    path: "/pdfs/Maths/Revision Notes/exchangeratesandbestbuys.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-20"
+  },
+  {
+    id: "math-expanding-brackets",
+    title: "Expanding Brackets",
+    description: "Algebraic expansion techniques",
+    path: "/pdfs/Maths/Revision Notes/expandingbrackets.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-21"
+  },
+  {
+    id: "math-factorising",
+    title: "Factorising",
+    description: "Algebraic factorisation methods",
+    path: "/pdfs/Maths/Revision Notes/factorising.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-22"
+  },
+  {
+    id: "math-forming-solving-equations",
+    title: "Forming and Solving Equations",
+    description: "Creating and solving algebraic equations",
+    path: "/pdfs/Maths/Revision Notes/formingandsolvingequations.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-23"
+  },
+  {
+    id: "math-fractions",
+    title: "Fractions",
+    description: "Operations with fractions",
+    path: "/pdfs/Maths/Revision Notes/fractions.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-24"
+  },
+  {
+    id: "math-fractions-decimals-percentages",
+    title: "Fractions, Decimals and Percentages",
+    description: "Converting between different number representations",
+    path: "/pdfs/Maths/Revision Notes/fractionsdecimalsandpercentages.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-25"
   }
 ];

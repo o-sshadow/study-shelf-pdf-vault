@@ -137,5 +137,95 @@ export const physicsPdfs: PDF[] = [
     subject: "physics",
     category: "Revision Notes",
     dateAdded: "2025-02-15"
+  },
+  {
+    id: "physics-mains-electricity",
+    title: "Mains Electricity",
+    description: "Concepts of household electricity",
+    path: "/pdfs/Physics/Revision Notes/mainselectricity.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-16"
+  },
+  {
+    id: "physics-moments",
+    title: "Moments",
+    description: "Principles of moments and rotational forces",
+    path: "/pdfs/Physics/Revision Notes/moments.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-17"
+  },
+  {
+    id: "physics-momentum",
+    title: "Momentum",
+    description: "Conservation of momentum and collisions",
+    path: "/pdfs/Physics/Revision Notes/momentum.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-18"
+  },
+  {
+    id: "physics-nuclear",
+    title: "Nuclear Fission and Fusion",
+    description: "Nuclear energy processes",
+    path: "/pdfs/Physics/Revision Notes/nucelarfissionandfusion.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-19"
+  },
+  {
+    id: "physics-optics",
+    title: "Optics",
+    description: "Light and optical phenomena",
+    path: "/pdfs/Physics/Revision Notes/optics.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-20"
+  },
+  {
+    id: "physics-particle-model",
+    title: "Particle Model and Pressure",
+    description: "Particle theory and pressure",
+    path: "/pdfs/Physics/Revision Notes/particlemodelandpressure.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-21"
+  },
+  {
+    id: "physics-pressure-fluids",
+    title: "Pressure and Differences in Fluids",
+    description: "Fluid dynamics and pressure differences",
+    path: "/pdfs/Physics/Revision Notes/pressureanddifferencesinfluids.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-22"
+  },
+  {
+    id: "physics-waves",
+    title: "Properties of Waves",
+    description: "Wave behavior and characteristics",
+    path: "/pdfs/Physics/Revision Notes/propertiesofwaves.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-23"
+  },
+  {
+    id: "physics-radioactive-decay",
+    title: "Radioactive Decay",
+    description: "Types and properties of radioactive decay",
+    path: "/pdfs/Physics/Revision Notes/radioactivedecay.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-24"
+  },
+  {
+    id: "physics-sound",
+    title: "Sound",
+    description: "Properties and behavior of sound waves",
+    path: "/pdfs/Physics/Revision Notes/sound.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-25"
   }
 ];
