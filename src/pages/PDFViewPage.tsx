@@ -3,7 +3,7 @@ import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
 import NewPDFViewer from "@/components/NewPDFViewer";
-import { pdfs } from "@/data/subjects";
+import { pdfs } from "@/data";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 

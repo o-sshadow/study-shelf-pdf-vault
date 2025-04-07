@@ -19,4 +19,5 @@ export function getPDFsBySubject(subjectId: string): PDF[] {
 }
 
 // Export all types and data
-export { Subject, SubjectCategory, PDF, subjects, categories, pdfs };
+export { subjects, categories, pdfs };
+export type { Subject, SubjectCategory, PDF };

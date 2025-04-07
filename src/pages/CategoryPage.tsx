@@ -5,9 +5,9 @@ import MainLayout from "@/components/layout/MainLayout";
 import PDFCard from "@/components/PDFCard";
 import { 
   getPDFsBySubjectAndCategory, 
-  getSubjectById, 
-  SubjectCategory 
-} from "@/data/subjects";
+  getSubjectById
+} from "@/data";
+import type { SubjectCategory } from "@/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";

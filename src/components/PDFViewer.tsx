@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
-import { PDF } from "@/data/subjects";
+import type { PDF } from "@/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Download, Maximize, Minimize, Bookmark, BookmarkPlus, ChevronLeft, ChevronRight } from "lucide-react";

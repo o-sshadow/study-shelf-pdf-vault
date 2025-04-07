@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Subject } from "@/data/subjects";
+import type { Subject } from "@/data";
 
 interface SubjectCardProps {
   subject: Subject;

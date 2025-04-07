@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { SubjectCategory } from "@/data/subjects";
+import type { SubjectCategory } from "@/data";
 
 interface CategoryCardProps {
   category: SubjectCategory;

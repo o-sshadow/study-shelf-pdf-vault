@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { PDF } from "@/data/subjects";
+import type { PDF } from "@/data";
 
 interface PDFCardProps {
   pdf: PDF;

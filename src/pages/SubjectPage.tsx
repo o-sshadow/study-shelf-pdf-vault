@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
 import CategoryCard from "@/components/CategoryCard";
-import { categories, getSubjectById, getPDFsBySubjectAndCategory } from "@/data/subjects";
+import { categories, getSubjectById, getPDFsBySubjectAndCategory } from "@/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
