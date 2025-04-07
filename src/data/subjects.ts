@@ -1,3 +1,4 @@
+
 export type SubjectCategory = "Mock Exams" | "Revision Notes" | "Past Papers" | "Mark Scheme";
 
 export interface Subject {
@@ -747,4 +748,586 @@ export const pdfs: PDF[] = [
     dateAdded: "2025-02-17"
   },
   {
-    id:
+    id: "bio-human-influences",
+    title: "Human Influences on the Environment",
+    description: "Study of human impact on ecosystems",
+    path: "/pdfs/Biology/Revision Notes/humaninfluences.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-18"
+  },
+  {
+    id: "bio-inheritance",
+    title: "Inheritance",
+    description: "Notes on genetics and inheritance patterns",
+    path: "/pdfs/Biology/Revision Notes/inheritence.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-19"
+  },
+  {
+    id: "bio-natural-selection",
+    title: "Natural Selection",
+    description: "Notes on evolution and natural selection",
+    path: "/pdfs/Biology/Revision Notes/naturalselection.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-20"
+  },
+  {
+    id: "bio-photosynthesis",
+    title: "Photosynthesis",
+    description: "In-depth notes on photosynthesis",
+    path: "/pdfs/Biology/Revision Notes/photosynthesis.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-21"
+  },
+  {
+    id: "bio-plant-hormones",
+    title: "Plant Hormones",
+    description: "Notes on plant growth regulators and responses",
+    path: "/pdfs/Biology/Revision Notes/planthormones.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-22"
+  },
+  {
+    id: "bio-plant-structure",
+    title: "Plant Structure",
+    description: "Notes on plant anatomy and tissue systems",
+    path: "/pdfs/Biology/Revision Notes/plantstructure.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-23"
+  },
+  {
+    id: "bio-reproduction",
+    title: "Reproduction",
+    description: "Notes on sexual and asexual reproduction",
+    path: "/pdfs/Biology/Revision Notes/reproduction.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-24"
+  },
+  {
+    id: "bio-respiration",
+    title: "Respiration",
+    description: "Comprehensive notes on cellular respiration",
+    path: "/pdfs/Biology/Revision Notes/respiration.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-25"
+  },
+  {
+    id: "bio-stem-cells",
+    title: "Stem Cells",
+    description: "Notes on stem cell biology and applications",
+    path: "/pdfs/Biology/Revision Notes/stemcells.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-26"
+  },
+  {
+    id: "bio-organism-environment",
+    title: "The Organism in the Environment",
+    description: "Notes on ecological adaptations",
+    path: "/pdfs/Biology/Revision Notes/theorganismintheenvironment.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-27"
+  },
+  {
+    id: "bio-transport-animals",
+    title: "Transport in Animals",
+    description: "Study of circulatory and transport systems in animals",
+    path: "/pdfs/Biology/Revision Notes/transportinanimals.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-28"
+  },
+  {
+    id: "bio-transport-plants",
+    title: "Transport in Plants",
+    description: "Notes on xylem, phloem, and water transport in plants",
+    path: "/pdfs/Biology/Revision Notes/transportinplants.pdf",
+    subject: "biology",
+    category: "Revision Notes",
+    dateAdded: "2025-02-29"
+  },
+  
+  // Computer Science - Mock Exams
+  {
+    id: "cs-paper1-question",
+    title: "Computer Science Paper 1 - Questions",
+    description: "Computer Science Paper 1 examination questions",
+    path: "/pdfs/Computer Science/Mock Exams/paper1-question.pdf",
+    subject: "computer-science",
+    category: "Mock Exams",
+    dateAdded: "2025-01-15"
+  },
+  {
+    id: "cs-paper1-answer",
+    title: "Computer Science Paper 1 - Answers",
+    description: "Computer Science Paper 1 examination answers",
+    path: "/pdfs/Computer Science/Mock Exams/paper1-answer.pdf",
+    subject: "computer-science",
+    category: "Mark Scheme",
+    dateAdded: "2025-01-15"
+  },
+  {
+    id: "cs-paper2-question",
+    title: "Computer Science Paper 2 - Questions",
+    description: "Computer Science Paper 2 examination questions",
+    path: "/pdfs/Computer Science/Mock Exams/paper2-question.pdf",
+    subject: "computer-science",
+    category: "Mock Exams",
+    dateAdded: "2025-01-18"
+  },
+  {
+    id: "cs-paper2-answer",
+    title: "Computer Science Paper 2 - Answers",
+    description: "Computer Science Paper 2 examination answers",
+    path: "/pdfs/Computer Science/Mock Exams/paper2-answer.pdf",
+    subject: "computer-science",
+    category: "Mark Scheme",
+    dateAdded: "2025-01-18"
+  },
+  
+  // Computer Science - Revision Notes
+  {
+    id: "cs-boolean-logic",
+    title: "Boolean Logic Diagrams",
+    description: "Notes on Boolean logic and circuit diagrams",
+    path: "/pdfs/Computer Science/Revision Notes/booleanlogicdiagrams.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-01"
+  },
+  {
+    id: "cs-computational-thinking",
+    title: "Computational Thinking and Algorithms",
+    description: "Notes on computational thinking techniques",
+    path: "/pdfs/Computer Science/Revision Notes/computationalthinkingandalgorithms.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-02"
+  },
+  {
+    id: "cs-cpu",
+    title: "CPU",
+    description: "Study of CPU architecture and functions",
+    path: "/pdfs/Computer Science/Revision Notes/cpu.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-03"
+  },
+  {
+    id: "cs-creating-algorithms",
+    title: "Creating Algorithms",
+    description: "Notes on algorithm design and implementation",
+    path: "/pdfs/Computer Science/Revision Notes/creatingalgorithms.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-04"
+  },
+  {
+    id: "cs-data-storage",
+    title: "Data Storage and Compression",
+    description: "Notes on data storage techniques and compression",
+    path: "/pdfs/Computer Science/Revision Notes/datastorageandcompression.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-05"
+  },
+  {
+    id: "cs-defensive-design",
+    title: "Defensive Design and Testing",
+    description: "Notes on secure software design and testing methods",
+    path: "/pdfs/Computer Science/Revision Notes/defensivedesignandtesting.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-06"
+  },
+  {
+    id: "cs-ethical-legal",
+    title: "Ethical, Legal, Cultural and Environmental Impact",
+    description: "Study of computing ethics and societal impacts",
+    path: "/pdfs/Computer Science/Revision Notes/ethicallegalculturalandenvironmentalimpact.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-07"
+  },
+  {
+    id: "cs-networks-topologies",
+    title: "Networks and Topologies",
+    description: "Notes on network types and topologies",
+    path: "/pdfs/Computer Science/Revision Notes/networksandtopologies.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-08"
+  },
+  {
+    id: "cs-os-utility",
+    title: "OS and Utility Software",
+    description: "Study of operating systems and utility software",
+    path: "/pdfs/Computer Science/Revision Notes/osandutilitysoftware.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-09"
+  },
+  {
+    id: "cs-preventing-threats",
+    title: "Preventing Threats",
+    description: "Notes on cybersecurity and threat prevention",
+    path: "/pdfs/Computer Science/Revision Notes/preventingthreats.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-10"
+  },
+  {
+    id: "cs-storage",
+    title: "Primary and Secondary Storage",
+    description: "Notes on computer memory and storage",
+    path: "/pdfs/Computer Science/Revision Notes/primaryandsecondarystorage.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-11"
+  },
+  {
+    id: "cs-programming-fundamentals",
+    title: "Programming Fundamentals",
+    description: "Notes on programming concepts and principles",
+    path: "/pdfs/Computer Science/Revision Notes/programmingfundamentals.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-12"
+  },
+  {
+    id: "cs-programming-languages",
+    title: "Programming Languages and IDEs",
+    description: "Overview of programming languages and development environments",
+    path: "/pdfs/Computer Science/Revision Notes/programminglanguagesandIDEs.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-13"
+  },
+  {
+    id: "cs-programming-techniques",
+    title: "Programming Techniques",
+    description: "Advanced programming methods and patterns",
+    path: "/pdfs/Computer Science/Revision Notes/programmingtechniques.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-14"
+  },
+  {
+    id: "cs-networks-protocols",
+    title: "Wired and Wireless Networks, Protocols and Layers",
+    description: "Study of network protocols and the OSI model",
+    path: "/pdfs/Computer Science/Revision Notes/wiredandwirelessnetoworksprotocolsandlayers.pdf",
+    subject: "computer-science",
+    category: "Revision Notes",
+    dateAdded: "2025-02-15"
+  },
+  
+  // Maths - Revision Notes
+  {
+    id: "math-3d-pythagorean",
+    title: "3D Pythagoras and Trigonometry",
+    description: "Applications of Pythagoras theorem and trigonometry in 3D space",
+    path: "/pdfs/Maths/Revision Notes/3dpythagorasandtrigonometry.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-01"
+  },
+  {
+    id: "math-algebraic-fractions",
+    title: "Algebraic Fractions",
+    description: "Operations with algebraic fractions",
+    path: "/pdfs/Maths/Revision Notes/algebraicfrations.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-02"
+  },
+  {
+    id: "math-algebraic-proof",
+    title: "Algebraic Proof",
+    description: "Techniques for algebraic proofs",
+    path: "/pdfs/Maths/Revision Notes/algebraicproof.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-03"
+  },
+  {
+    id: "math-algebraic-roots",
+    title: "Algebraic Roots and Indices",
+    description: "Working with roots and indices in algebra",
+    path: "/pdfs/Maths/Revision Notes/algebraicrootsandindicies.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-04"
+  },
+  {
+    id: "math-angles-polygons",
+    title: "Angles in Polygons and Parallel Lines",
+    description: "Properties of angles in geometric figures",
+    path: "/pdfs/Maths/Revision Notes/anglesinpolygonsandparallellines.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-05"
+  },
+  {
+    id: "math-area-perimeter",
+    title: "Area and Perimeter",
+    description: "Calculating area and perimeter of shapes",
+    path: "/pdfs/Maths/Revision Notes/areaandperimeter.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-06"
+  },
+  {
+    id: "math-similar-shapes",
+    title: "Area and Volume of Similar Shapes",
+    description: "Scale factors and similar shapes",
+    path: "/pdfs/Maths/Revision Notes/areaandvolumeofsimilarshapes.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-07"
+  },
+  {
+    id: "math-averages",
+    title: "Averages, Ranges and Data",
+    description: "Statistical measures and data analysis",
+    path: "/pdfs/Maths/Revision Notes/averagesrangesanddata.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-08"
+  },
+  {
+    id: "math-bearings",
+    title: "Bearings, Scale Drawing, Constructions and Loci",
+    description: "Geometric constructions and bearings",
+    path: "/pdfs/Maths/Revision Notes/bearingsscaledrawingconstructionsandloci.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-09"
+  },
+  {
+    id: "math-circles",
+    title: "Circles, Arcs and Sectors",
+    description: "Properties and calculations for circles",
+    path: "/pdfs/Maths/Revision Notes/circlesarcsandsectors.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-10"
+  },
+  {
+    id: "math-circle-theorems",
+    title: "Circle Theorems",
+    description: "Geometric theorems related to circles",
+    path: "/pdfs/Maths/Revision Notes/circletheorems.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-11"
+  },
+  {
+    id: "math-probability",
+    title: "Combined and Conditional Probability",
+    description: "Advanced probability concepts",
+    path: "/pdfs/Maths/Revision Notes/combinedandconditionalprobability.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-12"
+  },
+  {
+    id: "math-completing-square",
+    title: "Completing the Square",
+    description: "Quadratic expressions in completed square form",
+    path: "/pdfs/Maths/Revision Notes/completingthesquare.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-13"
+  },
+  // Adding more math PDFs
+  {
+    id: "math-congruence",
+    title: "Congruence, Similarity and Geometrical Proof",
+    description: "Concepts of congruence and similarity in geometry",
+    path: "/pdfs/Maths/Revision Notes/congruencesimilarityandgeometricalproof.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-14"
+  },
+  {
+    id: "math-coordinate-geometry",
+    title: "Coordinate Geometry",
+    description: "Working with coordinates and equations of lines",
+    path: "/pdfs/Maths/Revision Notes/coordinategeometry.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-15"
+  },
+  {
+    id: "math-cumulative-frequency",
+    title: "Cumulative Frequency and Box Plots",
+    description: "Statistical representation and analysis",
+    path: "/pdfs/Maths/Revision Notes/culmulativefrequencyandboxplots.pdf",
+    subject: "maths",
+    category: "Revision Notes",
+    dateAdded: "2025-02-16"
+  },
+  
+  // Physics - Revision Notes
+  {
+    id: "physics-atomic-structure",
+    title: "Atomic Structure",
+    description: "Structure of atoms and related concepts",
+    path: "/pdfs/Physics/Revision Notes/atomicstructure.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-01"
+  },
+  {
+    id: "physics-components",
+    title: "Components in Series and Parallel Circuits",
+    description: "Circuit analysis for series and parallel configurations",
+    path: "/pdfs/Physics/Revision Notes/componentsinseriesandparallelcircuits.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-02"
+  },
+  {
+    id: "physics-energy-conservation",
+    title: "Conservation of Energy",
+    description: "Principles of energy conservation",
+    path: "/pdfs/Physics/Revision Notes/conservationofenergy.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-03"
+  },
+  {
+    id: "physics-cosmology",
+    title: "Cosmology",
+    description: "Study of the universe's origin and evolution",
+    path: "/pdfs/Physics/Revision Notes/cosmology.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-04"
+  },
+  {
+    id: "physics-current",
+    title: "Current, Potential Difference and Resistance",
+    description: "Fundamental electrical concepts",
+    path: "/pdfs/Physics/Revision Notes/currentpotentialdifferenceandresistance.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-05"
+  },
+  {
+    id: "physics-motion",
+    title: "Describing Motion",
+    description: "Kinematics and motion analysis",
+    path: "/pdfs/Physics/Revision Notes/describingmotion.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-06"
+  },
+  {
+    id: "physics-efficiency",
+    title: "Efficiency and Energy Resources",
+    description: "Energy efficiency and renewable resources",
+    path: "/pdfs/Physics/Revision Notes/effciencyandenergyresources.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-07"
+  },
+  {
+    id: "physics-electromagnetic-induction",
+    title: "Electromagnetic Induction",
+    description: "Principles of electromagnetic induction",
+    path: "/pdfs/Physics/Revision Notes/electromagneticinduction.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-08"
+  },
+  {
+    id: "physics-electromagnetic-waves",
+    title: "Electromagnetic Waves",
+    description: "Properties and applications of EM waves",
+    path: "/pdfs/Physics/Revision Notes/electromagneticwaves.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-09"
+  },
+  {
+    id: "physics-electromagnetism",
+    title: "Electromagnetism and the Motor Effect",
+    description: "Principles of electromagnetism",
+    path: "/pdfs/Physics/Revision Notes/electromagnetismandthemotoreffect.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-10"
+  },
+  {
+    id: "physics-energy-transfer",
+    title: "Energy Transfer in Circuits",
+    description: "Energy considerations in electrical circuits",
+    path: "/pdfs/Physics/Revision Notes/energytransferincircuits.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-11"
+  },
+  {
+    id: "physics-quantities",
+    title: "Expressing Quantities and SI Units",
+    description: "Working with physical quantities and units",
+    path: "/pdfs/Physics/Revision Notes/expressingquantitiesandsiunits.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-12"
+  },
+  {
+    id: "physics-forces",
+    title: "Forces",
+    description: "Fundamental concepts of forces",
+    path: "/pdfs/Physics/Revision Notes/forces.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-13"
+  },
+  {
+    id: "physics-elasticity",
+    title: "Forces and Elasticity",
+    description: "Study of elastic materials and Hooke's Law",
+    path: "/pdfs/Physics/Revision Notes/forcesandelasticity.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-14"
+  },
+  {
+    id: "physics-magnetism",
+    title: "Magnetism",
+    description: "Principles of magnetism and magnetic fields",
+    path: "/pdfs/Physics/Revision Notes/magnetism.pdf",
+    subject: "physics",
+    category: "Revision Notes",
+    dateAdded: "2025-02-15"
+  }
+];
+
+// Helper function to get a subject by ID
+export function getSubjectById(id: string): Subject | undefined {
+  return subjects.find(subject => subject.id === id);
+}
+
+// Get PDFs by subject and category
+export function getPDFsBySubjectAndCategory(subjectId: string, category: string): PDF[] {
+  return pdfs.filter(pdf => pdf.subject === subjectId && pdf.category === category);
+}
+
+// Get PDFs by subject
+export function getPDFsBySubject(subjectId: string): PDF[] {
+  return pdfs.filter(pdf => pdf.subject === subjectId);
+}
+
