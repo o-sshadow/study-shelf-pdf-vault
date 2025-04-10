@@ -1,10 +1,12 @@
 
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
 import SubjectCard from "@/components/SubjectCard";
 import { subjects } from "@/data/subjects";
 import { Input } from "@/components/ui/input";
-import { BookOpen, Search } from "lucide-react";
+import { BookOpen, Search, FlipHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,6 +32,14 @@ const Index = () => {
           Access comprehensive revision materials organized by subject and category.
           Find everything you need to excel in your studies.
         </p>
+        
+        {/* Flashcards button */}
+        <Link to="/flashcards" className="inline-block mb-8">
+          <Button size="lg" className="gap-2 bg-study hover:bg-study/90 text-study-foreground">
+            <FlipHorizontal className="h-5 w-5" />
+            Study with Flashcards
+          </Button>
+        </Link>
         
         {/* Search bar */}
         <div className="relative max-w-md mx-auto mb-12 group">
