@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
-import { saveAs } from "file-saver";
 import { v4 as uuidv4 } from "uuid";
 import MainLayout from "@/components/layout/MainLayout";
 import { Flashcard } from "@/data/types";
@@ -12,16 +11,37 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
   FileDown, 
   FileUp, 
   Plus, 
   Trash2, 
+  Trash,
   Edit, 
   Save, 
   XCircle, 
   Search,
-  FlipHorizontal
+  FlipHorizontal,
+  Menu
 } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet";
 
 const FlashcardsPage = () => {
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
@@ -32,6 +52,7 @@ const FlashcardsPage = () => {
   const [editQuestion, setEditQuestion] = useState("");
   const [editAnswer, setEditAnswer] = useState("");
   const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Load flashcards from localStorage on component mount
@@ -74,6 +95,11 @@ const FlashcardsPage = () => {
   const handleDeleteFlashcard = (id: string) => {
     setFlashcards(flashcards.filter((card) => card.id !== id));
     toast.success("Flashcard deleted");
+  };
+
+  const handleDeleteAllFlashcards = () => {
+    setFlashcards([]);
+    toast.success("All flashcards deleted");
   };
 
   const handleEditFlashcard = (card: Flashcard) => {
@@ -181,7 +207,17 @@ const FlashcardsPage = () => {
 
     // Create and download the CSV file
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
-    saveAs(blob, `flashcards-${new Date().toISOString().split("T")[0]}.csv`);
+    
+    // Create a download link and trigger it
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `flashcards-${new Date().toISOString().split("T")[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
     toast.success("Exported flashcards to CSV");
   };
 
@@ -192,261 +228,347 @@ const FlashcardsPage = () => {
       card.answer.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const currentFlashcard = filteredFlashcards.length > 0 ? filteredFlashcards[0] : null;
+
   return (
     <MainLayout>
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center p-3 mb-4 rounded-xl bg-study/10 text-study">
-            <FlipHorizontal className="h-6 w-6" />
+      <div className="relative h-[calc(100vh-4rem)] w-full">
+        <div className="flex h-full">
+          {/* Mobile sidebar toggle */}
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="md:hidden fixed top-20 left-4 z-10 bg-background"
+            onClick={() => setSidebarOpen(true)}
+          >
+            <Menu className="h-4 w-4" />
+          </Button>
+
+          {/* Desktop sidebar */}
+          <div className="hidden md:flex w-[300px] border-r h-full flex-col bg-background shadow-sm">
+            {renderSidebarContent()}
           </div>
-          <h1 className="text-4xl font-heading font-bold mb-4">Flashcards</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Create, import, and export flashcards to help with your studies.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          {/* Create flashcard form */}
-          <Card className="lg:col-span-1">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Plus className="h-5 w-5" />
-                Create New Flashcard
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="question">Question</Label>
-                <Textarea
-                  id="question"
-                  placeholder="Enter your question..."
-                  value={question}
-                  onChange={(e) => setQuestion(e.target.value)}
-                  className="resize-none"
-                  rows={3}
-                />
+          {/* Mobile sidebar */}
+          <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
+            <SheetContent side="left" className="w-[300px] p-0 overflow-y-auto">
+              <SheetHeader className="p-4 border-b">
+                <SheetTitle className="flex items-center">
+                  <FlipHorizontal className="mr-2 h-5 w-5 text-study" />
+                  <span>Flashcards</span>
+                </SheetTitle>
+              </SheetHeader>
+              <div className="px-2 pt-2">
+                {renderSidebarContent()}
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="answer">Answer</Label>
-                <Textarea
-                  id="answer"
-                  placeholder="Enter the answer..."
-                  value={answer}
-                  onChange={(e) => setAnswer(e.target.value)}
-                  className="resize-none"
-                  rows={3}
-                />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button 
-                onClick={handleAddFlashcard} 
-                className="w-full"
-                disabled={!question.trim() || !answer.trim()}
-              >
-                <Plus className="mr-2 h-4 w-4" /> Add Flashcard
-              </Button>
-            </CardFooter>
-          </Card>
+            </SheetContent>
+          </Sheet>
 
-          {/* Import/Export section */}
-          <Card className="lg:col-span-2">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileUp className="h-5 w-5" />
-                Import & Export
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="csv-import">Import from CSV</Label>
-                <p className="text-sm text-muted-foreground mb-2">
-                  CSV format should have "Question" and "Answer" columns
-                </p>
-                <div className="flex items-center gap-2">
-                  <Input
-                    id="csv-import"
-                    type="file"
-                    accept=".csv"
-                    ref={fileInputRef}
-                    onChange={handleImportCSV}
-                    className="flex-1"
-                  />
-                </div>
-              </div>
+          {/* Main content area with the flashcards */}
+          <div className="flex-1 p-4 overflow-auto">
+            <div className="max-w-4xl mx-auto h-full flex flex-col justify-center items-center">
+              <h1 className="text-3xl font-bold text-center mb-8 md:hidden">Flashcards</h1>
               
-              <Separator />
-              
-              <div className="space-y-2">
-                <Label>Export to CSV</Label>
-                <p className="text-sm text-muted-foreground mb-2">
-                  Download all your flashcards as a CSV file
-                </p>
-                <Button 
-                  onClick={handleExportCSV} 
-                  variant="outline" 
-                  className="w-full"
-                  disabled={flashcards.length === 0}
-                >
-                  <FileDown className="mr-2 h-4 w-4" /> Export {flashcards.length} Flashcards
-                </Button>
-              </div>
-              
-              <Separator />
-              
-              <div className="space-y-2">
-                <Label htmlFor="search-flashcards">Search Flashcards</Label>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="search-flashcards"
-                    placeholder="Search questions and answers..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Flashcards list */}
-        <h2 className="text-2xl font-semibold mb-6 mt-10">
-          Your Flashcards ({filteredFlashcards.length})
-        </h2>
-        
-        {filteredFlashcards.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filteredFlashcards.map((card) => (
-              <Card key={card.id} className="relative overflow-hidden">
-                {editingId === card.id ? (
-                  <CardContent className="p-6">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor={`edit-question-${card.id}`}>Question</Label>
-                        <Textarea
-                          id={`edit-question-${card.id}`}
-                          value={editQuestion}
-                          onChange={(e) => setEditQuestion(e.target.value)}
-                          className="resize-none"
-                          rows={3}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor={`edit-answer-${card.id}`}>Answer</Label>
-                        <Textarea
-                          id={`edit-answer-${card.id}`}
-                          value={editAnswer}
-                          onChange={(e) => setEditAnswer(e.target.value)}
-                          className="resize-none"
-                          rows={3}
-                        />
-                      </div>
-                      <div className="flex gap-2 justify-end">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          onClick={handleCancelEdit}
-                        >
-                          <XCircle className="mr-2 h-4 w-4" /> Cancel
-                        </Button>
-                        <Button 
-                          size="sm" 
-                          onClick={() => handleSaveEdit(card.id)}
-                          disabled={!editQuestion.trim() || !editAnswer.trim()}
-                        >
-                          <Save className="mr-2 h-4 w-4" /> Save
-                        </Button>
-                      </div>
+              {filteredFlashcards.length > 0 ? (
+                <div className="w-full max-w-2xl">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold">
+                      Card {filteredFlashcards.indexOf(currentFlashcard as Flashcard) + 1} of {filteredFlashcards.length}
+                    </h2>
+                    <div className="flex gap-2">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleFlipCard(currentFlashcard?.id || "")}
+                      >
+                        <FlipHorizontal className="h-4 w-4 mr-1" />
+                        Flip
+                      </Button>
                     </div>
-                  </CardContent>
-                ) : (
-                  <>
-                    <CardContent 
-                      className="p-6 cursor-pointer min-h-[12rem] flex items-center justify-center"
-                      onClick={() => handleFlipCard(card.id)}
-                    >
-                      <div className="text-center">
-                        {flippedCards[card.id] ? (
+                  </div>
+
+                  {/* Flashcard display */}
+                  <Card 
+                    className="w-full aspect-[2/1] flex items-center justify-center cursor-pointer hover:shadow-md transition-shadow"
+                    onClick={() => handleFlipCard(currentFlashcard?.id || "")}
+                  >
+                    <CardContent className="p-6 flex items-center justify-center h-full">
+                      <div className="text-center max-w-full">
+                        {flippedCards[currentFlashcard?.id || ""] ? (
                           <div className="animate-fade-in">
                             <span className="text-sm text-muted-foreground mb-2 block">Answer:</span>
-                            <p className="text-lg">{card.answer}</p>
+                            <p className="text-2xl">{currentFlashcard?.answer}</p>
                           </div>
                         ) : (
                           <div className="animate-fade-in">
                             <span className="text-sm text-muted-foreground mb-2 block">Question:</span>
-                            <p className="text-lg">{card.question}</p>
+                            <p className="text-2xl">{currentFlashcard?.question}</p>
                           </div>
                         )}
                       </div>
                     </CardContent>
-                    <CardFooter className="justify-between border-t p-4">
-                      <div className="text-xs text-muted-foreground">
-                        {new Date(card.createdAt).toLocaleDateString()}
-                      </div>
-                      <div className="flex gap-2">
-                        <Button 
-                          variant="ghost" 
-                          size="icon"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleEditFlashcard(card);
-                          }}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDeleteFlashcard(card.id);
-                          }}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleFlipCard(card.id);
-                          }}
-                        >
-                          <FlipHorizontal className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </CardFooter>
-                  </>
-                )}
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12 rounded-lg border border-border bg-card">
-            <div className="inline-flex items-center justify-center p-3 mb-4 rounded-full bg-muted">
-              <FlipHorizontal className="h-5 w-5 text-muted-foreground" />
+                  </Card>
+                  
+                  {/* Navigation controls */}
+                  <div className="flex justify-between mt-6">
+                    <Button 
+                      variant="outline"
+                      disabled={filteredFlashcards.indexOf(currentFlashcard as Flashcard) === 0}
+                    >
+                      Previous
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      disabled={filteredFlashcards.indexOf(currentFlashcard as Flashcard) === filteredFlashcards.length - 1}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-12 rounded-lg border border-border bg-card w-full max-w-2xl">
+                  <div className="inline-flex items-center justify-center p-3 mb-4 rounded-full bg-muted">
+                    <FlipHorizontal className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-xl font-medium mb-2">No flashcards found</h3>
+                  <p className="text-muted-foreground mb-6">
+                    {searchTerm ? 
+                      `No flashcards match your search for "${searchTerm}".` : 
+                      "You don't have any flashcards yet. Create one or import from CSV."}
+                  </p>
+                  {searchTerm && (
+                    <Button 
+                      onClick={() => setSearchTerm("")}
+                      variant="outline"
+                    >
+                      Clear search
+                    </Button>
+                  )}
+                </div>
+              )}
             </div>
-            <h3 className="text-xl font-medium mb-2">No flashcards found</h3>
-            <p className="text-muted-foreground mb-6">
-              {searchTerm ? 
-                `No flashcards match your search for "${searchTerm}".` : 
-                "You don't have any flashcards yet. Create one or import from CSV."}
-            </p>
-            {searchTerm && (
-              <Button 
-                onClick={() => setSearchTerm("")}
-                variant="outline"
-              >
-                Clear search
-              </Button>
-            )}
+          </div>
+        </div>
+
+        {/* Editing Modal */}
+        {editingId && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <Card className="w-full max-w-md">
+              <CardHeader>
+                <CardTitle>Edit Flashcard</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="edit-question">Question</Label>
+                  <Textarea
+                    id="edit-question"
+                    value={editQuestion}
+                    onChange={(e) => setEditQuestion(e.target.value)}
+                    className="resize-none"
+                    rows={3}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="edit-answer">Answer</Label>
+                  <Textarea
+                    id="edit-answer"
+                    value={editAnswer}
+                    onChange={(e) => setEditAnswer(e.target.value)}
+                    className="resize-none"
+                    rows={3}
+                  />
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-end gap-2">
+                <Button 
+                  variant="outline" 
+                  onClick={handleCancelEdit}
+                >
+                  Cancel
+                </Button>
+                <Button 
+                  onClick={() => editingId && handleSaveEdit(editingId)}
+                  disabled={!editQuestion.trim() || !editAnswer.trim()}
+                >
+                  Save
+                </Button>
+              </CardFooter>
+            </Card>
           </div>
         )}
       </div>
     </MainLayout>
   );
+
+  function renderSidebarContent() {
+    return (
+      <>
+        <div className="p-4">
+          <div className="hidden md:flex items-center gap-2 mb-6">
+            <div className="p-2 rounded-xl bg-study/10 text-study">
+              <FlipHorizontal className="h-5 w-5" />
+            </div>
+            <h1 className="text-2xl font-bold">Flashcards</h1>
+          </div>
+          
+          <div className="space-y-2 mb-6">
+            <Label htmlFor="search-flashcards">Search</Label>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                id="search-flashcards"
+                placeholder="Search flashcards..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <h2 className="font-semibold">Create New Flashcard</h2>
+            <div className="space-y-2">
+              <Label htmlFor="question">Question</Label>
+              <Textarea
+                id="question"
+                placeholder="Enter your question..."
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                className="resize-none"
+                rows={3}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="answer">Answer</Label>
+              <Textarea
+                id="answer"
+                placeholder="Enter the answer..."
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
+                className="resize-none"
+                rows={3}
+              />
+            </div>
+            <Button 
+              onClick={handleAddFlashcard} 
+              className="w-full"
+              disabled={!question.trim() || !answer.trim()}
+            >
+              <Plus className="mr-2 h-4 w-4" /> Add Flashcard
+            </Button>
+          </div>
+        </div>
+        
+        <Separator />
+        
+        <div className="p-4 space-y-4">
+          <h2 className="font-semibold">Your Flashcards</h2>
+          <p className="text-sm text-muted-foreground">
+            Total: {flashcards.length} | Showing: {filteredFlashcards.length}
+          </p>
+          
+          <div className="space-y-2">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button 
+                  variant="destructive" 
+                  className="w-full"
+                  disabled={flashcards.length === 0}
+                >
+                  <Trash className="mr-2 h-4 w-4" /> Delete All
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete all your flashcards.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDeleteAllFlashcards}>
+                    Delete All
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        </div>
+        
+        <Separator />
+        
+        <div className="p-4 space-y-4">
+          <h2 className="font-semibold">Import/Export</h2>
+          
+          <div className="space-y-2">
+            <Label htmlFor="csv-import">Import from CSV</Label>
+            <p className="text-xs text-muted-foreground mb-2">
+              CSV format: "Question" and "Answer" columns
+            </p>
+            <Input
+              id="csv-import"
+              type="file"
+              accept=".csv"
+              ref={fileInputRef}
+              onChange={handleImportCSV}
+              className="text-sm"
+            />
+          </div>
+          
+          <Button 
+            onClick={handleExportCSV} 
+            variant="outline" 
+            className="w-full"
+            disabled={flashcards.length === 0}
+          >
+            <FileDown className="mr-2 h-4 w-4" /> Export ({flashcards.length})
+          </Button>
+        </div>
+        
+        {/* Card list on sidebar */}
+        {filteredFlashcards.length > 0 && (
+          <>
+            <Separator />
+            <div className="p-4">
+              <h2 className="font-semibold mb-2">All Cards</h2>
+              <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2">
+                {filteredFlashcards.map((card, index) => (
+                  <div 
+                    key={card.id}
+                    className="p-3 border rounded-md hover:bg-accent cursor-pointer flex justify-between items-center"
+                  >
+                    <div className="truncate flex-1">
+                      <span className="font-medium">{index + 1}.</span> {card.question.length > 30 ? 
+                        `${card.question.substring(0, 30)}...` : card.question}
+                    </div>
+                    <div className="flex gap-1 ml-2">
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        className="h-7 w-7"
+                        onClick={() => handleEditFlashcard(card)}
+                      >
+                        <Edit className="h-3.5 w-3.5" />
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        className="h-7 w-7"
+                        onClick={() => handleDeleteFlashcard(card.id)}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+      </>
+    );
+  }
 };
 
 export default FlashcardsPage;
