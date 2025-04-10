@@ -32,7 +32,9 @@ import {
   XCircle, 
   Search,
   FlipHorizontal,
-  Menu
+  Menu,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import {
   Sheet,
@@ -53,6 +55,7 @@ const FlashcardsPage = () => {
   const [editAnswer, setEditAnswer] = useState("");
   const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Load flashcards from localStorage on component mount
@@ -72,6 +75,11 @@ const FlashcardsPage = () => {
   useEffect(() => {
     localStorage.setItem("flashcards", JSON.stringify(flashcards));
   }, [flashcards]);
+
+  // Reset current card index when filtered cards change
+  useEffect(() => {
+    setCurrentCardIndex(0);
+  }, [searchTerm]);
 
   const handleAddFlashcard = () => {
     if (!question.trim() || !answer.trim()) {
@@ -205,10 +213,8 @@ const FlashcardsPage = () => {
       csvContent += `${questionFormatted},${answerFormatted}\n`;
     });
 
-    // Create and download the CSV file
+    // Create and download the CSV file using native browser API
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
-    
-    // Create a download link and trigger it
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -221,6 +227,33 @@ const FlashcardsPage = () => {
     toast.success("Exported flashcards to CSV");
   };
 
+  // Navigation functions
+  const handleNextCard = () => {
+    if (currentCardIndex < filteredFlashcards.length - 1) {
+      setCurrentCardIndex(currentCardIndex + 1);
+      // Reset flip state for the new card
+      if (filteredFlashcards[currentCardIndex + 1]) {
+        setFlippedCards((prev) => ({
+          ...prev,
+          [filteredFlashcards[currentCardIndex + 1].id]: false,
+        }));
+      }
+    }
+  };
+
+  const handlePreviousCard = () => {
+    if (currentCardIndex > 0) {
+      setCurrentCardIndex(currentCardIndex - 1);
+      // Reset flip state for the new card
+      if (filteredFlashcards[currentCardIndex - 1]) {
+        setFlippedCards((prev) => ({
+          ...prev,
+          [filteredFlashcards[currentCardIndex - 1].id]: false,
+        }));
+      }
+    }
+  };
+
   // Filter flashcards based on search term
   const filteredFlashcards = flashcards.filter(
     (card) =>
@@ -228,7 +261,9 @@ const FlashcardsPage = () => {
       card.answer.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const currentFlashcard = filteredFlashcards.length > 0 ? filteredFlashcards[0] : null;
+  const currentFlashcard = filteredFlashcards.length > 0 
+    ? filteredFlashcards[currentCardIndex]
+    : null;
 
   return (
     <MainLayout>
@@ -273,13 +308,13 @@ const FlashcardsPage = () => {
                 <div className="w-full max-w-2xl">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold">
-                      Card {filteredFlashcards.indexOf(currentFlashcard as Flashcard) + 1} of {filteredFlashcards.length}
+                      Card {currentCardIndex + 1} of {filteredFlashcards.length}
                     </h2>
                     <div className="flex gap-2">
                       <Button 
                         variant="outline" 
                         size="sm"
-                        onClick={() => handleFlipCard(currentFlashcard?.id || "")}
+                        onClick={() => currentFlashcard && handleFlipCard(currentFlashcard.id)}
                       >
                         <FlipHorizontal className="h-4 w-4 mr-1" />
                         Flip
@@ -290,14 +325,14 @@ const FlashcardsPage = () => {
                   {/* Flashcard display */}
                   <Card 
                     className="w-full aspect-[2/1] flex items-center justify-center cursor-pointer hover:shadow-md transition-shadow"
-                    onClick={() => handleFlipCard(currentFlashcard?.id || "")}
+                    onClick={() => currentFlashcard && handleFlipCard(currentFlashcard.id)}
                   >
                     <CardContent className="p-6 flex items-center justify-center h-full">
                       <div className="text-center max-w-full">
-                        {flippedCards[currentFlashcard?.id || ""] ? (
+                        {currentFlashcard && flippedCards[currentFlashcard.id] ? (
                           <div className="animate-fade-in">
                             <span className="text-sm text-muted-foreground mb-2 block">Answer:</span>
-                            <p className="text-2xl">{currentFlashcard?.answer}</p>
+                            <p className="text-2xl">{currentFlashcard.answer}</p>
                           </div>
                         ) : (
                           <div className="animate-fade-in">
@@ -313,15 +348,19 @@ const FlashcardsPage = () => {
                   <div className="flex justify-between mt-6">
                     <Button 
                       variant="outline"
-                      disabled={filteredFlashcards.indexOf(currentFlashcard as Flashcard) === 0}
+                      onClick={handlePreviousCard}
+                      disabled={currentCardIndex === 0}
                     >
+                      <ChevronLeft className="mr-2 h-4 w-4" />
                       Previous
                     </Button>
                     <Button 
                       variant="outline"
-                      disabled={filteredFlashcards.indexOf(currentFlashcard as Flashcard) === filteredFlashcards.length - 1}
+                      onClick={handleNextCard}
+                      disabled={currentCardIndex === filteredFlashcards.length - 1}
                     >
                       Next
+                      <ChevronRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
                 </div>
@@ -536,7 +575,8 @@ const FlashcardsPage = () => {
                 {filteredFlashcards.map((card, index) => (
                   <div 
                     key={card.id}
-                    className="p-3 border rounded-md hover:bg-accent cursor-pointer flex justify-between items-center"
+                    className={`p-3 border rounded-md hover:bg-accent cursor-pointer flex justify-between items-center ${currentCardIndex === index ? 'bg-accent/50 border-accent' : ''}`}
+                    onClick={() => setCurrentCardIndex(index)}
                   >
                     <div className="truncate flex-1">
                       <span className="font-medium">{index + 1}.</span> {card.question.length > 30 ? 
@@ -547,7 +587,10 @@ const FlashcardsPage = () => {
                         variant="ghost" 
                         size="icon"
                         className="h-7 w-7"
-                        onClick={() => handleEditFlashcard(card)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEditFlashcard(card);
+                        }}
                       >
                         <Edit className="h-3.5 w-3.5" />
                       </Button>
@@ -555,7 +598,10 @@ const FlashcardsPage = () => {
                         variant="ghost" 
                         size="icon"
                         className="h-7 w-7"
-                        onClick={() => handleDeleteFlashcard(card.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteFlashcard(card.id);
+                        }}
                       >
                         <Trash2 className="h-3.5 w-3.5" />
                       </Button>
@@ -572,3 +618,4 @@ const FlashcardsPage = () => {
 };
 
 export default FlashcardsPage;
+
