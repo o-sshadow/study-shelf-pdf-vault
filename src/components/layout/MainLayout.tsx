@@ -57,7 +57,10 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                       isActive("/flashcards") && "bg-secondary"
                     )}
                   >
-                    Flashcards
+                    <div className="flex items-center gap-2">
+                      <FlipHorizontal className="h-4 w-4" />
+                      Flashcards
+                    </div>
                   </Link>
                   <Link 
                     to="/about" 
