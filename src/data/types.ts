@@ -22,3 +22,11 @@ export interface PDF {
   category: SubjectCategory;
   dateAdded: string;
 }
+
+// Flashcard interface definition
+export interface Flashcard {
+  id: string;
+  question: string;
+  answer: string;
+  createdAt: string;
+}

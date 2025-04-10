@@ -1,8 +1,8 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Book, Menu, X } from "lucide-react";
+import { Book, Menu, FlipHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,12 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
+  const location = useLocation();
+  
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+  
   return (
     <div className="min-h-screen bg-background dark:bg-background transition-colors duration-300">
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -37,13 +43,28 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 <div className="py-4 space-y-4">
                   <Link 
                     to="/" 
-                    className="block py-2 px-4 rounded-md hover:bg-secondary transition-colors"
+                    className={cn(
+                      "block py-2 px-4 rounded-md hover:bg-secondary transition-colors",
+                      isActive("/") && "bg-secondary"
+                    )}
                   >
                     Home
                   </Link>
                   <Link 
+                    to="/flashcards" 
+                    className={cn(
+                      "block py-2 px-4 rounded-md hover:bg-secondary transition-colors",
+                      isActive("/flashcards") && "bg-secondary"
+                    )}
+                  >
+                    Flashcards
+                  </Link>
+                  <Link 
                     to="/about" 
-                    className="block py-2 px-4 rounded-md hover:bg-secondary transition-colors"
+                    className={cn(
+                      "block py-2 px-4 rounded-md hover:bg-secondary transition-colors",
+                      isActive("/about") && "bg-secondary"
+                    )}
                   >
                     About
                   </Link>
@@ -58,15 +79,33 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               <li>
                 <Link 
                   to="/" 
-                  className="font-medium hover:text-study transition-colors"
+                  className={cn(
+                    "font-medium hover:text-study transition-colors",
+                    isActive("/") && "text-study"
+                  )}
                 >
                   Home
                 </Link>
               </li>
               <li>
                 <Link 
+                  to="/flashcards" 
+                  className={cn(
+                    "font-medium hover:text-study transition-colors flex items-center gap-1",
+                    isActive("/flashcards") && "text-study"
+                  )}
+                >
+                  <FlipHorizontal className="h-4 w-4" />
+                  Flashcards
+                </Link>
+              </li>
+              <li>
+                <Link 
                   to="/about" 
-                  className="font-medium hover:text-study transition-colors"
+                  className={cn(
+                    "font-medium hover:text-study transition-colors",
+                    isActive("/about") && "text-study"
+                  )}
                 >
                   About
                 </Link>

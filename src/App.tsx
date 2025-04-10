@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import SubjectPage from "./pages/SubjectPage";
 import CategoryPage from "./pages/CategoryPage";
 import PDFViewPage from "./pages/PDFViewPage";
+import FlashcardsPage from "./pages/FlashcardsPage";
 import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/subject/:subjectId" element={<SubjectPage />} />
             <Route path="/subject/:subjectId/category/:categoryName" element={<CategoryPage />} />
             <Route path="/view-pdf/:pdfId" element={<PDFViewPage />} />
+            <Route path="/flashcards" element={<FlashcardsPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
