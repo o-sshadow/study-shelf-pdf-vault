@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import type { Subject } from "@/data";
@@ -28,16 +29,20 @@ const SubjectCard = ({ subject }: SubjectCardProps) => {
       <CardContent className="p-6 pt-3">
         <p className="text-muted-foreground mb-4">{subject.description}</p>
         <div className="flex flex-wrap gap-2 mb-4">
-          {subject.topics?.slice(0, 3).map((topic) => (
-            <Badge key={topic} variant="secondary" className="rounded-full">
-              {topic}
-            </Badge>
-          ))}
-          {subject.topics && subject.topics.length > 3 && (
-            <Badge variant="outline" className="rounded-full">
-              +{subject.topics.length - 3} more
-            </Badge>
-          )}
+          {subject.topics && subject.topics.length > 0 ? (
+            <>
+              {subject.topics.slice(0, 3).map((topic) => (
+                <Badge key={topic} variant="secondary" className="rounded-full">
+                  {topic}
+                </Badge>
+              ))}
+              {subject.topics.length > 3 && (
+                <Badge variant="outline" className="rounded-full">
+                  +{subject.topics.length - 3} more
+                </Badge>
+              )}
+            </>
+          ) : null}
         </div>
       </CardContent>
       <CardFooter className="p-6 pt-0">

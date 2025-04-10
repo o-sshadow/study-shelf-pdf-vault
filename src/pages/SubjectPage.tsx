@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
@@ -52,13 +53,15 @@ const SubjectPage = () => {
         </div>
         
         {/* Topic tags */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {(subject.topics || []).map((topic) => (
-            <div key={topic} className="px-3 py-1 bg-secondary rounded-full text-sm text-muted-foreground">
-              {topic}
-            </div>
-          ))}
-        </div>
+        {subject.topics && subject.topics.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-8">
+            {subject.topics.map((topic) => (
+              <div key={topic} className="px-3 py-1 bg-secondary rounded-full text-sm text-muted-foreground">
+                {topic}
+              </div>
+            ))}
+          </div>
+        )}
         
         {/* Search bar */}
         <div className="relative mb-8">
